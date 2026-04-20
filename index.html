@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Cowork 實戰工作坊</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007E39;
+            --secondary-color: #2D6A4F;
+            --accent-color: #f59e0b;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --success-color: #10b981;
+            --dark-bg: #1a1a2e;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, hsla(145, 100%, 96%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(156, 100%, 94%, 1) 0, transparent 50%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            width: 320px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--text-light);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 50;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 0 25px 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #4ade80;
+            letter-spacing: 0.5px;
+        }
+        .sidebar-header p {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 6px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-item {
+            padding: 13px 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left-color: rgba(74, 222, 128, 0.5);
+        }
+
+        .sidebar-item.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            border-left-color: #4ade80;
+        }
+
+        /* Main Content Styles */
+        #main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px;
+            width: calc(100% - 320px);
+        }
+
+        #content-display {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            min-height: 80vh;
+        }
+
+        /* Section Animation */
+        .lesson-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .lesson-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Header */
+        .lesson-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 50px 40px;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .lesson-header h2 {
+            font-size: 2.2em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Typography & Content */
+        .lesson-content {
+            padding: 40px;
+            font-size: 1.05rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin: 40px 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: 800;
+        }
+
+        .meta-tag {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.9em;
+            backdrop-filter: blur(8px);
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-right: 8px;
+            color: #f8fafc;
+        }
+
+        /* Code Block & Button */
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 20px 25px 20px 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 0;
+            font-family: monospace;
+            font-size: 0.95em;
+            line-height: 1.7;
+            border: 1px solid #334155;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        /* Buttons & Alerts */
+        .quick-links {
+            background: var(--light-bg);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: white;
+            border-radius: 9999px;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-pill:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        .alert {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid;
+            background: #fff;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            border-color: var(--success-color);
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: var(--warning-color);
+        }
+
+        /* Sidebar Label & Sub-items */
+        .sidebar-label {
+            padding: 18px 25px 8px;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #4ade80;
+            cursor: default;
+            margin-top: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-sub { padding-left: 45px; font-size: 0.9rem; }
+        .sidebar-time {
+            font-size: 0.68rem;
+            opacity: 0.55;
+            font-weight: 400;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+        /* Learning Objectives Box */
+        .objectives-box {
+            background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+            border: 2px solid #86efac;
+            border-radius: 16px;
+            padding: 28px;
+            margin: 0 0 28px;
+        }
+        .objectives-box h3 { color: #15803d; font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; }
+        .objectives-box ul {
+            list-style: none; padding: 0; margin: 0 0 12px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .objectives-box ul li { color: #166534; font-weight: 600; font-size: 0.95rem; }
+        .objectives-time { color: #6b7280; font-size: 0.85rem; margin: 0; font-style: italic; }
+        /* Pain-point opener */
+        .pain-point-box {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2942 100%);
+            color: white; border-radius: 16px; padding: 28px;
+            margin: 0 0 30px; position: relative; overflow: hidden;
+        }
+        .pain-point-box::before {
+            content: ''; position: absolute; top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            background: rgba(74,222,128,0.1); border-radius: 50%;
+        }
+        .pain-point-box h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; color: #4ade80; }
+        .pain-point-box p { opacity: 0.9; line-height: 1.7; margin: 0; }
+        .pain-point-box .answer {
+            background: rgba(74,222,128,0.15); border-left: 3px solid #4ade80;
+            padding: 12px 16px; border-radius: 0 8px 8px 0;
+            margin-top: 16px; font-weight: 600;
+        }
+        /* Prerequisite check box */
+        .prereq-box {
+            background: #eff6ff; border: 1px solid #bfdbfe;
+            border-radius: 14px; padding: 24px; margin-bottom: 30px;
+        }
+        .prereq-box h4 { color: #1d4ed8; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+        /* Self-check box */
+        .self-check-box {
+            background: #f0fdf4; border: 2px solid #86efac;
+            border-radius: 14px; padding: 24px; margin-top: 28px;
+        }
+        .self-check-box h4 { color: #15803d; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+        /* Checklist */
+        .checklist { list-style: none; padding: 0; margin: 0; }
+        .checklist li {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+            font-size: 0.95rem; color: #374151;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist input[type="checkbox"] {
+            width: 18px; height: 18px; margin-top: 2px;
+            flex-shrink: 0; accent-color: #16a34a; cursor: pointer;
+        }
+        /* FAQ box */
+        .faq-box {
+            background: #fffbeb; border: 1px solid #fde68a;
+            border-radius: 14px; padding: 22px; margin-top: 20px;
+        }
+        .faq-box h4 { color: #92400e; font-size: 1rem; font-weight: 800; margin-bottom: 12px; }
+        .faq-item { margin-bottom: 12px; }
+        .faq-item:last-child { margin-bottom: 0; }
+        .faq-question { font-weight: 700; color: #78350f; font-size: 0.9rem; margin: 0 0 4px; }
+        .faq-answer { color: #92400e; font-size: 0.88rem; margin: 0; padding-left: 12px; border-left: 2px solid #fcd34d; }
+        /* Dept badge */
+        .dept-badge {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            padding: 2px 10px; border-radius: 9999px; margin-left: 8px;
+        }
+        .dept-all { background: #dbeafe; color: #1e40af; }
+        .dept-sales { background: #fce7f3; color: #9d174d; }
+        .dept-rd { background: #e0e7ff; color: #3730a3; }
+        .dept-mkt { background: #fef3c7; color: #92400e; }
+        .dept-ee { background: #d1fae5; color: #065f46; }
+
+        /* Mobile Adjustments */
+        #menu-toggle-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            #sidebar {
+                transform: translateX(-100%);
+                width: 300px;
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+            }
+
+            #main-content {
+                margin-left: 0;
+                width: 100%;
+                padding-top: 80px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            #menu-toggle-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="menu-toggle-btn">選單</button>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h2>Claude Cowork 實戰工作坊</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" onclick="showLesson('intro')"><span>💡</span> 第一階段：觀念破冰<span class="sidebar-time">~15 分</span></li>
+                <li class="sidebar-item" onclick="showLesson('setup')"><span>🔒</span> 第二階段：環境設定<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-label">⚡ 第三階段：基礎實戰</li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-files')"><span>📂</span> 任務一：檔案收納術<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-ocr')"><span>📝</span> 任務二：紙本轉電子<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-form')"><span>🧾</span> 任務三：PO 轉出貨單<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-calendar')"><span>📅</span> 任務四：會議待辦追蹤<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-label">🏭 第四階段：產業實戰</li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-quote')"><span>💰</span> 任務五：報價單產生<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-spec')"><span>🔧</span> 任務六：規格書翻譯<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-report')"><span>📊</span> 任務七：月報異常分析<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-complaint')"><span>📧</span> 任務八：客訴回覆信<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-item" onclick="showLesson('skills-library')"><span>🧰</span> 技能工具庫<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-item" onclick="showLesson('advance')"><span>🚀</span> 第五階段：進階展示<span class="sidebar-time">~5 分</span></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <div id="content-display">
+                
+                <!-- ============================== -->
+                <!-- 第一階段：觀念破冰 -->
+                <!-- ============================== -->
+                <section id="intro" class="lesson-section active">
+                    <div class="lesson-header">
+                        <span class="meta-tag">製造業主管專屬</span>
+                        <h2>第一階段：從「查資料」到「幫我做」</h2>
+                        <p class="mt-2 opacity-90">建立你的 AI 老闆心態：學習如何將任務「交辦」出去。</p>
+                    </div>
+                    <div class="lesson-content">
+
+                        <!-- 學習目標承諾框 -->
+                        <div class="objectives-box">
+                            <h3>📋 本次課程結束，你將能…</h3>
+                            <ul>
+                                <li>✅ 獨立設定 Claude Cowork 安全工作區</li>
+                                <li>✅ 用一句話指令完成 8 種實際工作任務</li>
+                                <li>✅ 安裝並客製化 12 個 AI 技能 SOP 範本</li>
+                                <li>✅ 把最討厭的重複文書作業「外包」給 AI</li>
+                                <li>✅ 讓 AI 自動產出報價單、出貨單等文件</li>
+                                <li>✅ 用 AI 秒翻設備規格書給外銷客戶</li>
+                            </ul>
+                            <p class="objectives-time">⏱ 預計總時長：約 120 分鐘｜🔵 初學者友善 ｜🏭 製造業場景</p>
+                        </div>
+
+                        <!-- 痛點開場 -->
+                        <div class="pain-point-box">
+                            <h3>🙋 先問大家幾個問題</h3>
+                            <p>
+                                上週業務問你某台 <strong>SG-200 磨漿機</strong> 的報價，你翻了半小時才從一堆 Excel 裡找到三個月前的報價單？<br><br>
+                                客戶要新規格的設備，研發改了 BOM 表後忘記通知業務，結果報價報錯被客戶打槍？<br><br>
+                                收到客訴信，光是寫回覆信跟填內部追蹤表就花了一整個下午？
+                            </p>
+                            <div class="answer">➡ 如果有任何一題中了……這堂課就是為你開的。今天結束後，這些事每件都花你不到 <strong>2 分鐘</strong>。</div>
+                        </div>
+
+                        <div class="section-title">核心觀念介紹</div>
+                        <p class="mb-4">傳統的 AI（如 ChatGPT）是對話式的，它「告訴你怎麼做」；而 <strong>Claude Cowork</strong> 是一個真正能動手的代理人（Agent），它能「直接幫你做完」！</p>
+                        
+                        <div class="alert alert-success">
+                            <h3 class="font-bold text-green-800 text-lg mb-2">🎯 三種工具，各有所長</h3>
+                            <ul class="list-disc pl-5 text-green-900 space-y-2">
+                                <li><strong>Chat 工具 vs. Cowork：</strong>Chat 工具（如 ChatGPT）擅長即時對話與諮詢；Cowork 的獨特優勢在於直接對你的本機資料夾執行讀寫操作，<strong>省去中間所有複製貼上步驟</strong>，產出真實成品。<sup class="text-xs"><a href="#ref-1" class="text-blue-600 hover:text-blue-800 hover:underline">[註1]</a></sup></li>
+                                <li><strong>NotebookLM vs. Cowork：</strong>NotebookLM 是幫你「想」（查資料、做摘要）；Cowork 是幫你「做」（留下具體的 Excel、Word 等真實工作成果）。<sup class="text-xs"><a href="#ref-2" class="text-blue-600 hover:text-blue-800 hover:underline">[註2]</a></sup></li>
+                                <li><strong>主動執行：</strong>你只需給予目標（如：整理桌面），它會自動拆解步驟、規劃計畫並執行，不需你一對一引導。</li>
+                            </ul>
+                        </div>
+
+                        <div class="alert alert-warning mt-4">
+                            <h3 class="font-bold text-yellow-800 text-lg mb-2">🏭 對我們設備製造業來說，Cowork 能做什麼？</h3>
+                            <ul class="list-disc pl-5 text-yellow-900 space-y-2">
+                                <li><strong>業務部：</strong>客戶 PO 自動轉出貨單、歷史報價一鍵產新報價、客訴信秒回覆</li>
+                                <li><strong>研發部：</strong>中文規格書自動翻英文、BOM 表新舊版比對差異報告</li>
+                                <li><strong>行銷部：</strong>多月銷售報表自動抓異常、展覽資料整理</li>
+                                <li><strong>電機部：</strong>品管檢查表數位化、設備維修記錄彙整</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 第二階段：環境設定 -->
+                <!-- ============================== -->
+                <section id="setup" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">防護機制</span>
+                        <h2>第二階段：打造專屬安全工作區</h2>
+                        <p class="mt-2 opacity-90">實作你的沙盒 (Sandbox) 環境，讓 AI 發揮作用同時保障電腦安全。</p>
+                    </div>
+                    <div class="lesson-content">
+
+                        <!-- 前置確認清單 -->
+                        <div class="prereq-box">
+                            <h4>📋 開始前確認清單（請逐項打勾！）</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 我的電腦已安裝 <strong>Claude Desktop</strong>（尚未安裝？<a href="https://claude.ai/download" target="_blank" class="text-blue-600 underline">點此前往下載頁面</a>）</li>
+                                <li><input type="checkbox"> 我已使用帳號成功登入 Claude Desktop</li>
+                                <li><input type="checkbox"> 我的電腦桌面有空間建立新的練習資料夾</li>
+                            </ul>
+                            <p class="text-blue-700 text-sm mt-3 font-semibold">✅ 三項全部確認後，再繼續下方步驟！</p>
+                        </div>
+
+                        <div class="section-title">操作核心：最小權限原則</div>
+                        
+                        <p>為了保障隱私，Claude Cowork 採取「最小權限原則」。我們現在要在桌面上建立一個絕對安全的練習環境：</p>
+                        
+                        <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl my-6 shadow-sm">
+                            <h4 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">🛠️ 實機操作步驟</h4>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700 text-lg">
+                                <li>請在您的電腦桌面上建立一個由你命名的新資料夾，建議命名為 <strong><code>主管_AI訓練區</code></strong>。</li>
+                                <li>在 Claude Desktop 軟體上方分頁切換到 <strong>「Cowork (或 Tasks)」</strong>。</li>
+                                <li>手動勾選介面上的 <strong>「Work in a Folder」</strong> 並選擇剛剛建立的目錄。</li>
+                                <li>請選擇 <strong>「Always Allow (永久授權)」</strong>，以確保 AI 在這堂課中能無縫為您服務！</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="my-6 text-center">
+                            <img src="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/6972a1d3d9f82138ceba7cb9_cowork-how-01.webp" alt="選擇授權資料夾介面示意圖" class="rounded-xl shadow-md border border-gray-200 mx-auto max-w-full h-auto" style="max-height: 400px;">
+                            <p class="text-gray-500 text-sm mt-2">▲ 介面示意：輸入專屬指令，並選定要讓它操作的資料夾</p>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <h3 class="font-bold text-yellow-800 text-lg mb-2">🛡️ 安全與風險</h3>
+                            <p class="text-yellow-900">
+                                很多人會擔心「AI 會不會亂翻我整台電腦？看到客戶的訂單機密？」答案是絕對不會！它有嚴格的安全機制<sup class="text-xs"><a href="#ref-1" class="text-blue-600 hover:text-blue-800 hover:underline">[註1]</a></sup>：<br>
+                                <strong>1. 沙盒隔離 (Sandbox)：</strong>Cowork 是在虛擬的隔離環境中執行，非常安全。<br>
+                                <strong>2. 明確授權：</strong>它「絕對無法」自動翻閱整台電腦，它<strong>只能看到你剛才拖曳進去授權的那個資料夾</strong>。<br>
+                                <strong>3. 刪除確認：</strong>只要牽涉到刪除檔案或覆蓋舊檔，未經你點擊視窗確認，AI 絕對不會自己亂動。
+                            </p>
+                        </div>
+                        
+                        <div class="alert alert-info mt-6 bg-blue-50 border border-blue-200">
+                            <h3 class="font-bold text-blue-800 text-lg mb-2">🔍 成果驗證</h3>
+                            <p class="text-blue-900">
+                                很多新手會誤以為「AI 做的東西 100% 正確」。請記住最佳實務核心：<strong>「信任，但要驗證 (Trust, but Verify)」</strong>！<br>
+                                AI 是你極度高效的實習生，它可以幫你省下 90% 的搬磚苦力活（如：抓取客戶 PO 金額、整理供應商報價）。<br>
+                                但 <strong>最後 10% 的數值真偽與邏輯判斷</strong>，責任依然在人類主管（也就是你）身上！送出報價單或出貨前，請務必抽驗關鍵數字。
+                            </p>
+                        </div>
+                        
+                        <div class="my-6 text-center">
+                            <img src="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/6972a1d40a6e040ed0666235_cowork-how-03.webp" alt="動作執行確認介面" class="rounded-xl shadow-md border border-gray-200 mx-auto max-w-full h-auto" style="max-height: 400px;">
+                            <p class="text-gray-500 text-sm mt-2">▲ 介面示意：任何重要或毀滅性動作（如刪除）前，皆會跳出確認視窗</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務一：自動化檔案收納術 -->
+                <!-- ============================== -->
+                <section id="practice-files" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">實戰 Aha Moment!</span>
+                        <h2>任務一：自動化檔案收納術</h2>
+                        <p class="mt-2 opacity-90">體驗秒殺雜亂無章下載資料夾的神奇時刻。<span class="dept-badge dept-all">全部門</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">📦 下載實作素材</div>
+                        <p>這是一個模擬了各種產品規格書、客戶 PO、品管報告、設備照片等混雜在一起的壓縮包，請下載後解壓縮至您剛剛建立的「安全工作區」中。</p>
+                        
+                        <div class="quick-links">
+                            <a href="115Q2-3_練習素材包.zip" class="btn-pill" download>⬇️ 點此下載：115Q2-3 練習素材包.zip</a>
+                        </div>
+                        
+                        <div class="section-title mt-10">💬 交辦這項任務！</div>
+                        <p>請將下方指令貼入您的 Claude Cowork 對話框，觀察它是如何像一個秘書一樣幫您把檔案歸位：</p>
+                        
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請幫我把這個資料夾裡的所有檔案分門別類。
+建議的分類方式：客戶文件（PO、訂單）、技術資料（規格書、BOM）、品管報表、財務單據、照片。
+另外，檔名如果是英文代碼或看不懂的，請讀過內容後改為清楚的中文名稱。</div>
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務一完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 安全工作區裡出現了依類別分好的子資料夾</li>
+                                <li><input type="checkbox"> 原本模糊的檔名已換成看得懂的中文名稱</li>
+                                <li><input type="checkbox"> AI 沒有私自操作我指定資料夾以外的地方</li>
+                            </ul>
+                        </div>
+
+                        <div class="faq-box">
+                            <h4>❓ 常見狀況排解</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：AI 說「找不到資料夾」或「沒有檔案」？</p>
+                                <p class="faq-answer">➡ 確認 Cowork 上方已選定正確的工作資料夾（Work in a Folder），重新傳送指令即可。</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：AI 做到一半停下來問我問題？</p>
+                                <p class="faq-answer">➡ 這是正常的確認行為！直接回覆「可以，繼續」就會繼續執行。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務二：紙本轉電子（品管檢查表） -->
+                <!-- ============================== -->
+                <section id="practice-ocr" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">進階生產力</span>
+                        <h2>任務二：品管檢查表秒變電子檔</h2>
+                        <p class="mt-2 opacity-90">告別手動輸入，用 AI 視覺辨識能力轉換產線紀錄。<span class="dept-badge dept-ee">電機</span><span class="dept-badge dept-rd">研發</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">📄 實境挑戰：品管檢查表數位化</div>
+                        <p>資料夾中有一張名為 <strong>品管檢查表_手寫.png</strong> 的圖片，這是產線上 SG-200 磨漿機的手寫品管檢查紀錄。現在我們連同製表、統計一次發包給管家處理！</p>
+                        
+                        <div class="code-container mt-6">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請幫我看那張品管檢查表的圖片（品管檢查表_手寫.png）。
+第一步：辨識上面所有的檢查項目與數據，轉成一個乾淨的 Excel 檔，欄位包含：檢查項目、標準值、實測值、判定結果。
+第二步：在 Excel 中用條件格式標記不合格的項目（紅色底色）。
+第三步：另外產出一份品管異常報告 Word 檔，寫出哪些項目不合格、建議的改善方向。</div>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 講師小提醒：此過程中你會看到 AI 直接利用寫檔能力將 .xlsx 與 .docx 生成到您的資料夾中！它甚至能自動加上條件格式，讓不合格項目一目了然——這在製造業的品管流程中極為實用。
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務二完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了品管檢查 Excel 檔</li>
+                                <li><input type="checkbox"> Excel 中不合格項目有紅色標記</li>
+                                <li><input type="checkbox"> 資料夾中出現了品管異常報告 Word 檔</li>
+                            </ul>
+                        </div>
+
+                        <div class="faq-box">
+                            <h4>❓ 常見狀況排解</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：AI 說「找不到品管檢查表_手寫.png」？</p>
+                                <p class="faq-answer">➡ 確認練習素材包已解壓縮至安全工作區，且圖片檔名未被修改。</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：辨識出來的數值好像不太對？</p>
+                                <p class="faq-answer">➡ 直接告訴 AI「第 X 項的實測值應該是 OOO，請修正」。這就是「Trust, but Verify」的最佳實踐！</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務三：客戶 PO → 出貨單 -->
+                <!-- ============================== -->
+                <section id="practice-form" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">自動填單</span>
+                        <h2>任務三：客戶 PO 直出出貨單</h2>
+                        <p class="mt-2 opacity-90">AI 不只會做新表格，它還能幫你完美填寫公司既有的死板模板！<span class="dept-badge dept-sales">業務</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">🧾 情境說明</div>
+                        <p>業務最痛苦的不是接單，而是要把客戶 PO 上的品項「手動填入公司規定的出貨單格式」。在 <code>data</code> 資料夾中有一份公司標準的 <strong>出貨單.xlsx</strong> 空白模板，練習素材包裡則有一份大成豆品的採購單。</p>
+                        <p class="mt-2 text-red-600 font-bold">這是很多人一直以為 AI 做不到的魔法：把數據填進舊表格裡，且不能破壞格式！</p>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+                        <p>像交代新進業助一樣，把客戶 PO 跟空白單子給它：</p>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請看資料夾中的客戶採購單（客戶PO_大成豆品.txt），並幫我打開 `data` 裡面的 `出貨單.xlsx`。
+幫我把 PO 上的客戶名稱、訂單編號、所有品項明細（品名、型號、數量、單價），正確填入出貨單的對應欄位。
+自動計算小計、稅額(5%)跟總計。出貨日期填今天。
+請維持原本出貨單的排版格式不要破壞，填好後存成一份新檔案「出貨單_大成豆品_2026-04-20.xlsx」給我。</div>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 講師小提醒：請學員打開生成的 Excel 檔，讓他們看看所有的框線、字體、甚至是原本的表頭結構都完好無缺！這個「保留原廠格式」的填單能力，是業務自動化最強大的武器。
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務三完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了「出貨單_大成豆品_2026-04-20.xlsx」</li>
+                                <li><input type="checkbox"> 打開 Excel 後，原本的表頭、框線、格式完好無缺</li>
+                                <li><input type="checkbox"> PO 上的品項、數量、金額已正確填入</li>
+                                <li><input type="checkbox"> 小計、稅額、總計金額計算正確</li>
+                                <li><input type="checkbox"> 原本 data 資料夾裡的空白出貨單未被覆蓋</li>
+                            </ul>
+                        </div>
+
+                        <div class="faq-box">
+                            <h4>❓ 常見狀況排解</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：新 Excel 的格式跑掉了？</p>
+                                <p class="faq-answer">➡ 在對話框補充：「請重做，維持原始出貨單的所有格式」，AI 通常能修正。</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：PO 上的金額辨識錯誤？</p>
+                                <p class="faq-answer">➡ 直接告訴 AI「第 X 欄的金額應該是 OOO，請修正後重存」。這就是「Trust, but Verify」的實踐！</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務四：產線異常會議待辦追蹤 -->
+                <!-- ============================== -->
+                <section id="practice-calendar" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">跨應用整合</span>
+                        <h2>任務四：產線異常會議 → 待辦追蹤</h2>
+                        <p class="mt-2 opacity-90">讓 AI 讀懂會議記錄，自動幫你在 Google 日曆上建立每一項行動追蹤。<span class="dept-badge dept-all">全部門</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">📅 情境說明</div>
+                        <p>練習素材包裡有一份 <strong>產線異常會議_20260418.txt</strong>，這是上週五剛開完的 <strong>產線異常檢討會議紀錄</strong>。裡面有多項行動決議，每項都有負責人和截止日期（最近的就在 4/22！）。</p>
+                        <p class="mt-2">如果是以前，你得自己一條一條打開 Google 日曆，手動建立事件、設定提醒⋯⋯ 現在，我們直接交給管家搞定！</p>
+
+                        <div class="alert alert-warning mt-6">
+                            <h3 class="font-bold text-yellow-800 text-lg mb-2">⚠️ 操作前須知</h3>
+                            <p class="text-yellow-900">
+                                Claude Cowork 會透過瀏覽器幫你操作 Google 日曆，因此需要你的 <strong>Google 帳號已在瀏覽器上登入</strong>。
+                            </p>
+                        </div>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+                        <p>不用分步驟，也不用寫一堆規格。像跟同事說話一樣，一句話就夠了：</p>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請讀一下資料夾裡的「產線異常會議_20260418.txt」，把裡面所有的行動決議與待辦事項幫我建到 Google 日曆上，每個都設提前一天提醒。事件名稱請包含負責人姓名。</div>
+                        </div>
+
+                        <div class="alert alert-success mt-6">
+                            <h3 class="font-bold text-green-800 text-lg mb-2">🎯 為什麼這麼短就夠了？</h3>
+                            <p class="text-green-900">
+                                Cowork 不是笨笨的機器人，它是一個聰明的 AI 管家。<br>
+                                它會<strong>自己判斷</strong>怎麼設定事件名稱、怎麼對應截止日、要不要寫備註。<br>
+                                你只需要講<strong>「要做什麼」</strong>就好，不用教它<strong>「怎麼做」</strong>！
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 講師小提醒：學員操作後可以請大家打開手機上的 Google 日曆 App，親眼看到事件已經出現了！像採購部李專員「4/22 前取得磨盤 COA」的提醒，明天就會響！
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務四完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 打開 Google 日曆，出現了 AI 剛建立的多個事件</li>
+                                <li><input type="checkbox"> 每個事件已設定「提前一天」提醒</li>
+                                <li><input type="checkbox"> 會議記錄中的所有行動決議都有對應的日曆事件</li>
+                            </ul>
+                        </div>
+
+                        <div class="faq-box">
+                            <h4>❓ 常見狀況排解</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：Claude 操作瀏覽器時一直跳出「需要授權」訊息？</p>
+                                <p class="faq-answer">➡ 請先在 Chrome/Edge 瀏覽器中手動登入您的 Google 帳號，並確保沒有開啟無痕模式，然後重新讓 Claude 執行。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- ☕ 休息提示（隱含在第五任務前） -->
+                <!-- ============================== -->
+
+                <!-- ============================== -->
+                <!-- 任務五：報價單快速產生 -->
+                <!-- ============================== -->
+                <section id="practice-quote" class="lesson-section">
+                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                        <span class="meta-tag">🏭 產業實戰</span>
+                        <h2>任務五：歷史報價 → 新報價單秒產</h2>
+                        <p class="mt-2 opacity-90">參考舊報價格式與新客戶需求，AI 自動幫你產出新報價。<span class="dept-badge dept-sales">業務</span></p>
+                    </div>
+                    <div class="lesson-content">
+
+                        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl mb-6">
+                            <h4 class="font-bold text-amber-800 mb-2">☕ 講師可於此處安排 10 分鐘休息</h4>
+                            <p class="text-amber-700 text-sm">前四個任務完成基礎練習，接下來四個任務將深入你的日常製造業場景。建議在此休息後再繼續。</p>
+                        </div>
+
+                        <div class="section-title">💰 情境說明</div>
+                        <p>業務最常遇到的場景：新客戶來詢價，你得翻出上次類似的報價單，然後一格一格改品項和數量⋯⋯現在，讓 AI 幫你秒完成！</p>
+                        <p class="mt-2">素材包裡有一份 <strong>報價單_磨漿機SG200_2025Q4.txt</strong>（永豐食品的歷史報價），現在假設大成豆品也來詢價，需要的規格跟永豐類似但數量不同。</p>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請參考素材裡的歷史報價單「報價單_磨漿機SG200_2025Q4.txt」的格式和排版。
+現在大成豆品（聯絡人：王大成經理）需要報價，品項如下：
+- SG-200 磨漿機 x1
+- BT-500 煮漿機 x1
+- 碳化矽磨盤備品 x2 組
+- 安裝調試費 x1
+價格參考歷史報價單的單價（不需調整）。
+請幫我產出一份新的報價單 Excel，維持跟歷史報價一樣的專業排版。</div>
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務五完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了新的報價單 Excel 檔</li>
+                                <li><input type="checkbox"> 報價單格式與歷史報價一致（表頭、框線、排版）</li>
+                                <li><input type="checkbox"> 客戶名稱已改為「大成豆品」，品項和數量正確</li>
+                                <li><input type="checkbox"> 合計金額計算正確</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務六：技術規格書翻譯 -->
+                <!-- ============================== -->
+                <section id="practice-spec" class="lesson-section">
+                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                        <span class="meta-tag">🏭 產業實戰</span>
+                        <h2>任務六：中文規格書 → 英文技術文件</h2>
+                        <p class="mt-2 opacity-90">外銷客戶要英文規格書？30 秒搞定，而且用詞比你自己翻還專業！<span class="dept-badge dept-rd">研發</span><span class="dept-badge dept-ee">電機</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">🔧 情境說明</div>
+                        <p>公司要開拓東南亞市場，劉經理催著要 SG-200 的英文規格書。以前自己翻，光是「碳化矽磨盤」要翻什麼就查了半天⋯⋯現在讓 AI 一鍵搞定！</p>
+                        <p class="mt-2">素材包裡有一份 <strong>設備規格書_磨漿機SG200.txt</strong>，這是完整的中文技術規格書。</p>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請讀取素材裡的「設備規格書_磨漿機SG200.txt」，幫我翻成專業的英文技術規格文件。
+要求：
+1. 產品名稱用 "Automatic Soy Milk Grinding Machine"
+2. 技術參數表格保留原始結構，數值保留公制
+3. 產出 Word 檔(.docx)，含封面頁（產品型號、中英文名稱、日期）
+4. 專業術語要用業界標準翻法（例如：碳化矽→Silicon Carbide, SUS304 不鏽鋼→SUS304 Stainless Steel）</div>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 講師小提醒：打開生成的 Word，讓學員驚豔於 AI 不只翻譯精準，還直接幫你加上了封面頁排版。要強調：這份英文規格書「可以直接寄給客戶」的完成度！不過仍要遵循「Trust, but Verify」原則——技術參數務必抽查。
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務六完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了英文版技術規格書 Word 檔</li>
+                                <li><input type="checkbox"> 封面頁有產品型號和中英文名稱</li>
+                                <li><input type="checkbox"> 技術參數表格結構清晰、翻譯正確</li>
+                                <li><input type="checkbox"> 專業術語使用業界標準翻法</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務七：月報表異常分析 -->
+                <!-- ============================== -->
+                <section id="practice-report" class="lesson-section">
+                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                        <span class="meta-tag">🏭 產業實戰</span>
+                        <h2>任務七：Q1 銷售報表 → 一頁主管摘要</h2>
+                        <p class="mt-2 opacity-90">把三個月份的數據交叉比對，2 分鐘出一份老闆看了秒懂的摘要。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">📊 情境說明</div>
+                        <p>素材包裡有一份 <strong>銷售月報_2026Q1.txt</strong>，包含今年 1~3 月各產品線的銷售數據、毛利率等資訊。你的任務是讓 AI 幫你找出異常、趨勢和重點，產出一份主管會議用的一頁摘要。</p>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請讀取素材裡的「銷售月報_2026Q1.txt」，幫我做一份主管會議摘要報告（Word 檔）。
+要求：
+1. 控制在一頁 A4 以內
+2. 結構：整體趨勢 → 明星產品 Top 3 → 需關注警示項目 → 建議行動
+3. 找出月對月業績波動超過 30% 的異常
+4. 找出毛利率偏低（低於 35%）的產品
+5. 標明數據來自哪個月份
+6. 檔名：主管摘要_2026年Q1銷售分析.docx</div>
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務七完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了「主管摘要_2026年Q1銷售分析.docx」</li>
+                                <li><input type="checkbox"> 報告結構清晰（趨勢 → Top 3 → 警示 → 建議）</li>
+                                <li><input type="checkbox"> 二月營收驟降有被標記為異常（農曆年因素）</li>
+                                <li><input type="checkbox"> 整份報告控制在一頁 A4 以內</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 任務八：客訴回覆信產生 -->
+                <!-- ============================== -->
+                <section id="practice-complaint" class="lesson-section">
+                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                        <span class="meta-tag">🏭 產業實戰</span>
+                        <h2>任務八：客訴信 → 專業回覆 + 內部追蹤表</h2>
+                        <p class="mt-2 opacity-90">收到客訴不用慌！AI 同時幫你寫回覆信和填追蹤表。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
+                    </div>
+                    <div class="lesson-content">
+                        <div class="section-title">📧 情境說明</div>
+                        <p>素材包裡有一份 <strong>客訴信_大成豆品_機器滲漏.txt</strong>，這是大成豆品反映 SG-200 磨漿機滲漏的客訴信件。以前處理客訴，你得花大半天寫回覆、填追蹤表、通知內部⋯⋯ 現在一句話搞定！</p>
+
+                        <div class="section-title mt-10">💬 一句話交辦！</div>
+
+                        <div class="code-container mt-4">
+                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                            <div class="code-block">請讀取素材裡的「客訴信_大成豆品_機器滲漏.txt」，幫我做兩件事：
+
+第一：產出一封「對外回覆信」（Word 檔），語氣要誠懇專業、積極解決問題。結構包含：致歉→初步原因研判→改善措施與時程→後續聯繫方式（留空讓我填）。
+
+第二：產出一份「內部客訴追蹤表」（Excel 檔），把客訴信裡提到的每個問題各一列，欄位包含：問題描述、初步原因、改善對策（待填）、負責人（待填）、預計完成日（待填）、狀態（預設🔴待處理）。</div>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 講師小提醒：讓學員比較 AI 寫的回覆信跟自己平常寫的——通常 AI 的用詞更專業、結構更完整。但一定要強調：初步原因研判是 AI 的「合理推測」，最終判斷仍需要技術部門確認！
+                        </div>
+
+                        <div class="self-check-box">
+                            <h4>✅ 任務八完成自我檢核</h4>
+                            <ul class="checklist">
+                                <li><input type="checkbox"> 資料夾中出現了客訴回覆信 Word 檔</li>
+                                <li><input type="checkbox"> 回覆信語氣誠懇專業，不推諉</li>
+                                <li><input type="checkbox"> 資料夾中出現了客訴追蹤表 Excel 檔</li>
+                                <li><input type="checkbox"> 追蹤表中客訴信提到的 3 個問題各有一列</li>
+                                <li><input type="checkbox"> 狀態欄位預設為「🔴待處理」</li>
+                            </ul>
+                        </div>
+
+                        <div class="faq-box">
+                            <h4>❓ 常見狀況排解</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：AI 寫的回覆信語氣太官腔？</p>
+                                <p class="faq-answer">➡ 補充一句：「語氣再親切一點，像關心老客戶的感覺」。AI 會立刻調整！</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">Q：追蹤表裡的初步原因分析不太準？</p>
+                                <p class="faq-answer">➡ 這很正常！AI 的初步研判只是節省你從零開始的時間，真正的根因分析仍需要技術部門現場確認。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 技能工具庫 -->
+                <!-- ============================== -->
+                <section id="skills-library" class="lesson-section">
+                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2d6a4f); border-bottom: 5px solid #4ade80;">
+                        <span class="meta-tag">🎁 課後禮物</span>
+                        <h2>技能工具庫：帶回家直接用！</h2>
+                        <p class="mt-2 opacity-90">我們幫你做好了 12 個實用技能範本，下載後導入 Claude Desktop 就能反覆使用。</p>
+                    </div>
+                    <div class="lesson-content">
+
+                        <div class="section-title">🛠️ 先學會：Skill 是什麼？怎麼用？</div>
+                        <p>Skill 就是一份 <strong>「SOP 說明書」</strong>，你在 Claude Desktop 裡建好一個 Skill，以後只要打 <code>/技能名稱</code> 就能觸發，AI 會自動按照你設定的流程跑！</p>
+
+                        <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl my-6 shadow-sm">
+                            <h4 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">📝 三步驟建立你的專屬技能</h4>
+                            <ol class="list-decimal list-inside space-y-4 text-slate-700 text-lg">
+                                <li>
+                                    <strong>打開 Skill 建立介面</strong>：在 Claude Desktop 中找到 <strong>Skills</strong> 功能，點選 <strong>「+ 建立新技能」</strong>。
+                                </li>
+                                <li>
+                                    <strong>設定名稱與內容</strong>：
+                                    <ul class="list-disc pl-8 mt-2 text-base text-gray-600 space-y-1">
+                                        <li><strong>名稱</strong>：取一個簡短好記的名字（例：<code>報帳</code>、<code>出貨</code>、<code>客訴</code>）</li>
+                                        <li><strong>指令內容</strong>：貼入 SOP 文字，說明觸發後要做什麼、格式規則是什麼</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>用 <code>/名稱</code> 一鍵觸發</strong>：以後在對話框輸入 <code>/出貨</code>，AI 就會自動載入那份 SOP 並按照規則執行！
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="alert alert-success">
+                            <h3 class="font-bold text-green-800 text-lg mb-2">💡 核心觀念</h3>
+                            <p class="text-green-900">
+                                Skill = <strong>「教一次，用一輩子」</strong>。<br>
+                                你花 5 分鐘設定好一個 Skill，以後只要打 <code>/出貨</code>、<code>/報價</code>、<code>/客訴</code> 就能秒觸發，不用每次重複解釋 SOP！
+                            </p>
+                        </div>
+
+                        <div class="section-title mt-10">🛠️ 如何把技能安裝到你的管家大腦裡？</div>
+                        
+                        <div class="mb-6">
+                            <a href="skills_guide.html" target="_blank" class="inline-flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 font-bold py-3 px-6 rounded-xl border border-yellow-300 transition-all shadow-sm">
+                                <span>📖 點此查看補充教材：AI 技能(Skill)載入雙法（手動正規 vs 動態神招）</span>
+                            </a>
+                        </div>
+                        
+                        <div class="my-6 text-center">
+                            <img src="https://raymondhouch.com/wp-content/uploads/2026/03/plugin-skill-gpts-vs-skill-1-scaled-jpg.webp" alt="Skill 的模組化概念" class="rounded-xl shadow-md border border-gray-200 mx-auto max-w-full h-auto" style="max-height: 350px;">
+                            <p class="text-gray-500 text-sm mt-2">▲ 觀念示意：Skill 就像是一個個可以隨插即用的 SOP 指令包，比傳統的 GPTs 更輕量且可疊加 <span class="italic text-gray-400">(圖片來源：雷蒙)<a href="#ref-4" class="text-blue-600 hover:text-blue-800 hover:underline ml-1">[註4]</a></span></p>
+                        </div>
+                        
+                        <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl my-6">
+                            <h4 class="text-xl font-bold text-indigo-800 mb-4 border-b border-indigo-200 pb-2">📂 操作步驟：複製貼上，30秒搞定</h4>
+                            <ol class="list-decimal list-inside space-y-3 text-indigo-900 text-lg">
+                                <li>點擊下方你想要的工具卡片，下載附檔名為 <code>.md</code> 的檔案。</li>
+                                <li>用電腦內建的<strong>記事本</strong>（或文字編輯器）打開它，<strong>全選並複製</strong>裡面的所有文字。</li>
+                                <li>回到 Claude Desktop 軟體，點擊右上角或左側欄找到 <strong>Skills (技能)</strong> 選單。</li>
+                                <li>點擊 <strong>+ Create New Skill (建立新技能)</strong>。</li>
+                                <li>將你剛剛複製的文字，完整<strong>拖曳或貼入到指令欄位</strong>，儲存！</li>
+                            </ol>
+                            
+                            <h4 class="text-xl font-bold text-indigo-800 mt-8 mb-4 border-b border-indigo-200 pb-2">✨ 如何開始使用它？</h4>
+                            <p class="text-indigo-900 text-lg mb-2">以後每次交辦任務，你不需要再重寫一堆規則，只要使用斜線快捷鍵：</p>
+                            <ul class="list-none space-y-2 text-indigo-900 text-lg pl-4 border-l-4 border-indigo-400">
+                                <li>👉 在對話框輸入斜線 <strong><code>/</code></strong> 就會跳出選單，點選你建好的技能（例如 <strong><code>/出貨</code></strong>）。</li>
+                                <li>👉 接著拖入客戶 PO 並按下 Enter，Claude 就會自動調用那個 SOP 幫你完美做事！</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-r from-teal-50 to-emerald-50 border-l-4 border-teal-500 p-6 rounded-xl my-8">
+                            <h4 class="text-lg font-bold text-teal-800 mb-2">💡 培訓核心理念：Skill 是活的，請大膽魔改！</h4>
+                            <p class="text-teal-900">
+                                教學的最高境界是不要只當一個「使用者」，而是練習當一個「AI 應用設計者」。您可以隨時用記事本打開下載的 <code>.md</code> 檔案，把裡頭的規則改成符合你自己單位的真實 SOP。<br>
+                                <strong>如果您設計出了好用的新 SOP 提示詞，強烈鼓勵您分享到部門群組，讓全公司一起享受這份效率提升！</strong>
+                            </p>
+                        </div>
+
+                        <!-- 通用辦公 SOP -->
+                        <div class="section-title mt-12">📋 通用辦公 SOP（8 個）</div>
+                        <p>適用於所有部門的日常文書自動化：</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                            <a href="skills/01_名片轉通訊錄.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📸</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/名片</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">名片 → 通訊錄</h3>
+                                <p class="text-gray-500 text-sm">拍名片照片，持續追加寫入公司通訊錄 Excel，內建防重複機制</p>
+                            </a>
+                            <a href="skills/02_會議紀錄轉追蹤信.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📧</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/追蹤信</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">會議紀錄 → 追蹤信</h3>
+                                <p class="text-gray-500 text-sm">讀會議紀錄，自動產出每位負責人的提醒 Email</p>
+                            </a>
+                            <a href="skills/03_多月報表異常摘要.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📊</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/主管摘要</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">多月報表 → 異常摘要</h3>
+                                <p class="text-gray-500 text-sm">多份報表交叉比對，秒出一頁 A4 主管摘要</p>
+                            </a>
+                            <a href="skills/04_發票照片轉報帳表.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">🧾</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/報帳</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">發票照片 → 報帳表</h3>
+                                <p class="text-gray-500 text-sm">拍發票收據，持續追加整理到年度報帳總表，自動延續流水號</p>
+                            </a>
+                            <a href="skills/05_白板照轉專案進度表.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📋</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/白板</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">白板照 → 專案進度表</h3>
+                                <p class="text-gray-500 text-sm">白板潦草字跡秒變結構化 Excel 時程表</p>
+                            </a>
+                            <a href="skills/06_離職交接文件產生器.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📁</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/交接</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">資料夾 → 交接文件</h3>
+                                <p class="text-gray-500 text-sm">掃描工作資料夾，自動產出完整交接文件</p>
+                            </a>
+                            <a href="skills/07_歷史報價單轉新報價.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">💰</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/報價</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">歷史報價單 → 新報價</h3>
+                                <p class="text-gray-500 text-sm">參考舊報價單與新對話，自動產出保留原格式的新報價 Excel</p>
+                            </a>
+                            <a href="skills/08_LINE對話結案與分工.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-green-400 no-underline">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">💬</div>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/LINE總結</code>
+                                </div>
+                                <h3 class="text-lg font-bold text-green-700 mb-1">LINE 紀錄 → 待辦清單</h3>
+                                <p class="text-gray-500 text-sm">匯出 LINE .txt 紀錄，秒過濾廢話，精煉成 Word 會議總結與分工</p>
+                            </a>
+                        </div>
+
+                        <!-- 製造業專屬 SOP -->
+                        <div class="section-title mt-12">🏭 製造業專屬 SOP（4 個）</div>
+                        <p>專為我們設備製造業設計的自動化流程：</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                            <a href="skills/09_客戶PO轉出貨單.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">📦</div>
+                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/出貨</code>
+                                    <span class="dept-badge dept-sales">業務</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-blue-700 mb-1">客戶 PO → 出貨單</h3>
+                                <p class="text-gray-500 text-sm">讀取客戶採購單，自動填寫公司出貨單模板，含稅額計算</p>
+                            </a>
+                            <a href="skills/10_技術規格書翻譯.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">🌐</div>
+                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/規格翻譯</code>
+                                    <span class="dept-badge dept-rd">研發</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-blue-700 mb-1">中文規格書 → 英文技術文件</h3>
+                                <p class="text-gray-500 text-sm">含專業術語對照（磨漿機、碳化矽磨盤等），自帶封面頁</p>
+                            </a>
+                            <a href="skills/11_客訴回覆信產生器.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">🛡️</div>
+                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/客訴</code>
+                                    <span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-blue-700 mb-1">客訴內容 → 回覆信 + 追蹤表</h3>
+                                <p class="text-gray-500 text-sm">同時產出對外回覆信（Word）與對內改善追蹤表（Excel）</p>
+                            </a>
+                            <a href="skills/12_BOM表比對分析.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div class="text-2xl">🔍</div>
+                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/BOM比對</code>
+                                    <span class="dept-badge dept-rd">研發</span><span class="dept-badge dept-ee">電機</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-blue-700 mb-1">新舊 BOM 表 → 差異分析報告</h3>
+                                <p class="text-gray-500 text-sm">自動比對新增/刪除/變更料件，含影響評估與成本分析</p>
+                            </a>
+                        </div>
+
+                        <div class="bg-gray-50 p-5 mt-6 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                            💡 小秘訣：這些技能只是起點！你可以用記事本打開任何一個 .md 檔案來看它怎麼寫的，然後照樣改成你自己部門的 SOP。比如「每次客戶下單自動產出生產工單」、「每月自動彙整設備保養記錄」等等……想到什麼就做什麼！
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 第四階段：進階展示 -->
+                <!-- ============================== -->
+                <section id="advance" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">開拓想像力</span>
+                        <h2>第四階段：未來辦公藍圖與進階展示</h2>
+                        <p class="mt-2 opacity-90">當你的手邊雜事被自動化後，AI 還能為大家做什麼？</p>
+                    </div>
+                    <div class="lesson-content">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                            
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">📱</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">遠端遙控 (Dispatch)</h3>
+                                <p class="text-gray-600">透過手機 App 配對電腦，人在客戶現場也能遙控辦公室：「幫我把 SG-200 的報價單 PDF 寄給大成豆品的王經理」。</p>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">🔗</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">外部系統串接 (Connectors)</h3>
+                                <p class="text-gray-600">Cowork 不只吃本地檔案，還能外掛 Google Drive、Notion 或 Slack：「幫我把今天的產線異常報告同步到 Notion 的品質管理頁面！」</p>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">💬</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">破解 LINE 封閉系統的神招</h3>
+                                <p class="text-gray-600">雖然 LINE 無法直接串接，但只要善用：<strong>「右上角匯出 txt 聊天紀錄」 → 丟進 Cowork 資料夾</strong>，一樣能秒總結客戶群組討論重點與分工！</p>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">⏰</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">定時排程 (Scheduled Tasks)</h3>
+                                <p class="text-gray-600">設定日常任務自動執行：「每週一早上 9 點，蒐集本週設備出貨排程並產出一份進度摘要存入資料夾」。</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">🧰</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">技能庫 (Skills)</h3>
+                                <p class="text-gray-600">將公司的 SOP 與標準轉化為內部專屬的套件庫。未來只要呼叫 <code>/skill</code> 即可自動套用範本規則做事。</p>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md">
+                                <div class="text-3xl mb-3">📂</div>
+                                <h3 class="text-xl font-bold text-green-700 mb-2">特定專案 (Projects)</h3>
+                                <p class="text-gray-600">隔離不同大專案。例如「Food Taipei 參展專案」有獨立記憶，AI 只在該框架內理解你的對話，不會跟其他庶務混淆。</p>
+                            </div>
+
+                        </div>
+                        
+                        <!-- 課後挑戰區塊 -->
+                        <div class="mt-16 border-2 border-indigo-200 shadow-xl rounded-2xl overflow-hidden">
+                            <div class="bg-indigo-600 px-6 py-4">
+                                <h3 class="text-white font-bold text-xl text-center">🏁 結訓挑戰：把你的第一件雜事交辦出去！</h3>
+                            </div>
+                            <div class="p-8 text-center bg-indigo-50">
+                                <p class="text-gray-700 text-lg mb-6">
+                                    教學看再多，不如親自動手做一次！真正的學習發生在課程結束之後：
+                                </p>
+                                <div class="inline-block text-left bg-white p-6 rounded-xl shadow-sm border border-indigo-100 mb-6 max-w-2xl w-full">
+                                    <ul class="space-y-4 text-indigo-900">
+                                        <li class="flex items-start"><span class="mr-3 text-xl">1️⃣</span> 回想一件你部門裡最討厭的重複文書（報價、客訴、BOM 比對、報表整理……）。</li>
+                                        <li class="flex items-start"><span class="mr-3 text-xl">2️⃣</span> 從上方的技能庫（12 個）中，下載一個最接近的 Skill 範本，用記事本修改成你部門專用的 SOP。</li>
+                                        <li class="flex items-start"><span class="mr-3 text-xl">3️⃣</span> 在 Cowork 實際跑一次，並將成功的對話截圖與心得，分享到公司的內部溝通群組！</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 參考資料與重點延伸 -->
+                        <div class="mt-12 p-8 bg-gray-50 rounded-xl border border-gray-200 text-sm text-gray-600 shadow-inner">
+                            <h4 class="text-lg font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">📚 參考資料與重點延伸</h4>
+                            <ul class="space-y-4">
+                                <li id="ref-1" class="transition duration-500 rounded p-2">
+                                    <span class="font-bold text-blue-700">[註1] RAR 設計攻略 Riven：</span><br>
+                                    <a href="https://rar.design/posts/claude-cowork" target="_blank" class="text-blue-500 hover:underline">Claude Cowork 完整教學：功能介紹、設定步驟與實際應用</a>
+                                    <p class="text-gray-500 mt-1">💡 本教材引用其：<span class="bg-gray-200 px-1 rounded">Chat vs Cowork 觀念</span> 與 <span class="bg-gray-200 px-1 rounded">安神丸資安防護邏輯</span></p>
+                                </li>
+                                <li id="ref-2" class="transition duration-500 rounded p-2">
+                                    <span class="font-bold text-blue-700">[註2] 雷蒙 數字工作與生活：</span><br>
+                                    <a href="https://raymondhouch.com/lifehacker/digital-workflow/claude-cowork-vs-notebooklm-vs-code/" target="_blank" class="text-blue-500 hover:underline">Claude Cowork 更好用了？它跟 NotebookLM 差在哪？</a>
+                                    <p class="text-gray-500 mt-1">💡 本教材引用其：<span class="bg-gray-200 px-1 rounded">NotebookLM 幫想想 vs Cowork 幫做做</span> 觀念</p>
+                                </li>
+                                <li id="ref-3" class="transition duration-500 rounded p-2">
+                                    <span class="font-bold text-blue-700">[註3] 推薦課後影片 / Papaya 電腦教室：</span><br>
+                                    <a href="https://www.youtube.com/watch?v=_cVTzXvb7xs" target="_blank" class="text-blue-500 hover:underline">被徹底解放能力！Claude 電腦版重大更新 (Cowork)</a>
+                                    <p class="text-gray-500 mt-1">💡 含豐富的情境動畫故事，非常適合推薦給初學同仁觀賞。</p>
+                                </li>
+                                <li id="ref-4" class="transition duration-500 rounded p-2">
+                                    <span class="font-bold text-blue-700">[註4] 雷蒙 數字工作與生活：</span><br>
+                                    <a href="https://raymondhouch.com/lifehacker/digital-workflow/claude-code-skill/" target="_blank" class="text-blue-500 hover:underline">Claude Code 的 CLAUDE.md 和 SKILL 教學</a>
+                                    <p class="text-gray-500 mt-1">💡 本教材引用其：<span class="bg-gray-200 px-1 rounded">Skill 模組化觀念圖解</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        function showLesson(lessonId) {
+            // Hide all
+            document.querySelectorAll('.lesson-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            
+            // Show target
+            document.getElementById(lessonId).classList.add('active');
+            
+            // Activate corresponding sidebar item
+            event.currentTarget.classList.add('active');
+            
+            // Close sidebar on mobile
+            document.getElementById('sidebar').classList.remove('open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('menu-toggle-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        // Copy button function
+        function copyPrompt(btn) {
+            const codeBlock = btn.nextElementSibling;
+            const textToCopy = codeBlock.innerText;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ 已複製';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+
+        // Intercept footnote link clicks to jump to `#advance` section and scroll to the ref
+        document.querySelectorAll('a[href^="#ref-"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const refId = this.getAttribute('href').substring(1);
+                
+                // Trigger the #advance tab via its sidebar button so styling applies correctly
+                const advanceTabBtn = document.querySelector('[onclick="showLesson(\'advance\')"]');
+                if (advanceTabBtn) {
+                    advanceTabBtn.click();
+                }
+
+                // Wait for DOM to render the new active section, then scroll
+                setTimeout(() => {
+                    const refElement = document.getElementById(refId);
+                    if (refElement) {
+                        refElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        refElement.classList.add('bg-yellow-100');
+                        setTimeout(() => refElement.classList.remove('bg-yellow-100'), 2500);
+                    }
+                }, 150);
+            });
+        });
+    </script>
+
+</body>
+</html>

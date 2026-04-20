@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>補充教材：AI 技能(Skill)載入雙法</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007E39;
+            --secondary-color: #2D6A4F;
+            --accent-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, hsla(145, 100%, 96%, 1) 0, transparent 50%),
+                radial-gradient(at 100% 0%, hsla(156, 100%, 94%, 1) 0, transparent 50%);
+            color: #1e293b;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 40px;
+            border-bottom: 5px solid var(--accent-color);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .method-box {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .method-box.manual { border-color: #93c5fd; background-color: #eff6ff; }
+        .method-box.dynamic { border-color: #fde047; background-color: #fefce8; }
+
+        .method-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .method-box.manual .method-title { color: #1e40af; }
+        .method-box.dynamic .method-title { color: #854d0e; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .method-box.manual .badge { background: #dbeafe; color: #1e40af; }
+        .method-box.dynamic .badge { background: #fef08a; color: #854d0e; }
+
+        /* Code Block */
+        .code-container { position: relative; margin: 20px 0; }
+        .code-block {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 0.95em;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: rgba(255, 255, 255, 0.25); }
+        .copy-btn.copied { background: #10b981; border-color: #10b981; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 999px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .back-link:hover { background: var(--secondary-color); transform: translateY(-2px); }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="bg-yellow-500 text-yellow-900 px-3 py-1 rounded-full text-sm font-bold tracking-wider mb-4 inline-block">115Q2-3 補充教材</span>
+            <h1>AI 模組化技能：載入雙法</h1>
+            <p class="opacity-90 mt-2">如何把公司的 SOP 無縫灌入 Claude 的大腦？</p>
+        </div>
+
+        <div class="content">
+            <p class="text-lg mb-8 text-gray-700">我們在課程中提供了 12 份 <code>.md</code> 格式的技能範本（位於 skills 資料夾下）。要讓 Claude 自動學會這些技能，我們提供兩種不同情境的做法：</p>
+
+            <!-- 方法一：手動正規版 -->
+            <div class="method-box manual">
+                <div class="method-title"><span>🛠️</span> 方法一：手動註冊（正規作法）</div>
+                <div class="badge">適合：個人常用技能 / 跨對話永久保留</div>
+                <p>這是官方推薦的正規作法。一旦設定好，這個技能就會永久綁定在你的 Claude 帳號裡，未來就算你開全新的對話視窗，也能瞬間呼叫出來，就像軟體裡內建的快捷鍵一樣。</p>
+                
+                <h4 class="font-bold text-blue-900 mt-6 mb-3 text-lg border-b border-blue-200 pb-2">操作步驟：</h4>
+                <ol class="list-decimal list-inside space-y-3 text-blue-900">
+                    <li>用「記事本」打開你想載入的 <code>.md</code> 檔案（例如：<span class="font-mono bg-blue-100 px-1 rounded">09_客戶PO轉出貨單.md</span>）。</li>
+                    <li>全選裡面的文字，按下 <strong>Ctrl+C 複製</strong>。</li>
+                    <li>回到 Claude Desktop 軟體，點擊左側側邊欄底部的「<strong>Customize（客製化）</strong>」，在彈出視窗中切換到「<strong>Skills（技能）</strong>」頁籤。</li>
+                    <li>點擊「<strong>+ Create Skill（建立技能）</strong>」。</li>
+                    <li>在「Name（名稱）」欄位輸入<strong>英文名稱</strong>（⚠️ 此欄位不支援中文！），然後把剛剛複製的內容 <strong>貼上到 Instructions 指令區塊</strong>，點擊儲存！</li>
+                </ol>
+
+                <div class="mt-5 bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="text-red-800 font-bold mb-2">⚠️ 重要提醒：Name 欄位只能輸入英文！</p>
+                    <p class="text-red-700 text-sm mb-3">Skills UI 的名稱欄位是系統識別碼，只接受英文字母、數字、底線和連字號。輸入中文會導致無法儲存或觸發失敗。</p>
+                    <p class="text-red-800 font-bold mb-2">📋 建議中英對照（輸入 <code>/英文名</code> 即可觸發）：</p>
+                    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+                        <thead><tr style="background:#fee2e2;"><th style="padding:6px 10px;text-align:left;color:#991b1b;">技能名稱</th><th style="padding:6px 10px;text-align:left;color:#991b1b;">英文 Name（填入此欄）</th><th style="padding:6px 10px;text-align:left;color:#991b1b;">觸發方式</th></tr></thead>
+                        <tbody style="color:#7f1d1d;">
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">名片轉通訊錄</td><td style="padding:5px 10px;font-family:monospace;">business-card</td><td style="padding:5px 10px;font-family:monospace;">/business-card</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">會議紀錄追蹤信</td><td style="padding:5px 10px;font-family:monospace;">meeting-followup</td><td style="padding:5px 10px;font-family:monospace;">/meeting-followup</td></tr>
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">多月報表摘要</td><td style="padding:5px 10px;font-family:monospace;">report-summary</td><td style="padding:5px 10px;font-family:monospace;">/report-summary</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">發票轉報帳表</td><td style="padding:5px 10px;font-family:monospace;">expense-report</td><td style="padding:5px 10px;font-family:monospace;">/expense-report</td></tr>
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">白板轉進度表</td><td style="padding:5px 10px;font-family:monospace;">whiteboard</td><td style="padding:5px 10px;font-family:monospace;">/whiteboard</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">離職交接文件</td><td style="padding:5px 10px;font-family:monospace;">handover</td><td style="padding:5px 10px;font-family:monospace;">/handover</td></tr>
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">歷史報價轉新報價</td><td style="padding:5px 10px;font-family:monospace;">quotation</td><td style="padding:5px 10px;font-family:monospace;">/quotation</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">LINE 對話總結</td><td style="padding:5px 10px;font-family:monospace;">line-summary</td><td style="padding:5px 10px;font-family:monospace;">/line-summary</td></tr>
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">客戶 PO 轉出貨單</td><td style="padding:5px 10px;font-family:monospace;">shipment</td><td style="padding:5px 10px;font-family:monospace;">/shipment</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">技術規格書翻譯</td><td style="padding:5px 10px;font-family:monospace;">spec-translate</td><td style="padding:5px 10px;font-family:monospace;">/spec-translate</td></tr>
+                            <tr style="border-top:1px solid #fecaca;"><td style="padding:5px 10px;">客訴回覆信</td><td style="padding:5px 10px;font-family:monospace;">complaint</td><td style="padding:5px 10px;font-family:monospace;">/complaint</td></tr>
+                            <tr style="border-top:1px solid #fecaca;background:#fff5f5;"><td style="padding:5px 10px;">BOM 表比對分析</td><td style="padding:5px 10px;font-family:monospace;">bom-compare</td><td style="padding:5px 10px;font-family:monospace;">/bom-compare</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 bg-white p-4 rounded-lg border border-blue-200 inline-block">
+                    <p class="text-blue-800 font-bold mb-1">💡 如何使用？</p>
+                    <p class="text-blue-700 text-sm">在對話框輸入斜線 <code>/</code>，就會跳出你剛建好的技能選單，點選後再拖入客戶檔案即可執行。</p>
+                </div>
+            </div>
+
+            <!-- 方法二：動態載入神招 -->
+            <div class="method-box dynamic">
+                <div class="method-title"><span>🔥</span> 方法二：動態載入（高階彩蛋神招）</div>
+                <div class="badge">適合：部門共用 SOP 大總匯 / 一次載入大量技能</div>
+                <p>如果你的部門有一個公用資料夾，裡面躺著幾十個主管寫好的 <code>.md</code> 檔 SOP，要同事一個個手動建立太麻煩了。這時候你可以利用 Claude 強大的「本地端讀取」能力，用一句提示詞讓它直接看完目錄裡所有的秘笈，現學現賣！</p>
+                
+                <h4 class="font-bold text-yellow-900 mt-6 mb-3 text-lg border-b border-yellow-200 pb-2">操作步驟：</h4>
+                <ol class="list-decimal list-inside space-y-3 text-yellow-900">
+                    <li>打開 Claude Desktop，開啟一個 <strong>全新的 Cowork 對話</strong>。</li>
+                    <li>確認上方「Work in a Folder」有選取包含 `skills` 的那個大資料夾。</li>
+                    <li>將下方這段神級提示詞複製，貼進對話框，送出！</li>
+                </ol>
+
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                    <div class="code-block">請讀取 `skills` 資料夾裡面的所有 .md 檔案。
+這些檔案是我們公司的標準作業流程（SOP），每一個檔案內容都包含了對應的「觸發詞」（例如：/出貨、/客訴 等）與執行規則。
+
+請你仔細閱讀並記住這 12 個檔案裡的產出格式。
+在我們接下來本次的通話中，只要我輸入對應的斜線觸發詞（例如輸入 /客訴），請你無論如何都直接套用該份檔案裡的 SOP 來為我執行任務，不需要再重新問我規則。
+
+如果已經詳讀完畢並準備好，請簡單回覆我一句：「🧙‍♂️ 總管已將 12 項內部技能載入至記憶中，隨時可接受斜線指令交辦！」</div>
+                </div>
+
+                <div class="mt-6 bg-white p-4 rounded-lg border border-yellow-200">
+                    <p class="text-yellow-800 font-bold mb-1">⚠️ 講師觀念提醒：</p>
+                    <p class="text-yellow-700 text-sm">此方法是依賴 AI 的「短期對話記憶」。好處是可以一次批次掛載無限多個 SOP；但壞處是，當你開啟「New Chat (新對話)」時，它就會忘記，必須再貼一次咒語。這招非常適合展示給主管看「AI 的動態學習能力」。</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <a href="index.html" class="back-link">🔙 返回主課程：115Q2-3 實戰工作坊</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt(btn) {
+            const codeBlock = btn.nextElementSibling;
+            const textToCopy = codeBlock.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '✅ 已複製';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Cowork 實戰工作坊</title>
+    <title>AI 辦公助理實戰訓練</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -466,7 +466,7 @@
         <!-- Sidebar Navigation -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h2>Claude Cowork 實戰工作坊</h2>
+                <h2>115Q2-3<br>大地興機器廠股份有限公司<br>AI 辦公助理實戰訓練</h2>
             </div>
             <ul class="sidebar-menu">
                 <li class="sidebar-item active" onclick="showLesson('intro')"><span>💡</span> 第一階段：觀念破冰<span class="sidebar-time">~15 分</span></li>
@@ -476,11 +476,8 @@
                 <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-ocr')"><span>📝</span> 任務二：紙本轉電子<span class="sidebar-time">~10 分</span></li>
                 <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-form')"><span>🧾</span> 任務三：PO 轉出貨單<span class="sidebar-time">~10 分</span></li>
                 <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-calendar')"><span>📅</span> 任務四：會議待辦追蹤<span class="sidebar-time">~10 分</span></li>
-                <li class="sidebar-label">🏭 第四階段：產業實戰</li>
-                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-quote')"><span>💰</span> 任務五：報價單產生<span class="sidebar-time">~8 分</span></li>
-                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-spec')"><span>🔧</span> 任務六：規格書翻譯<span class="sidebar-time">~8 分</span></li>
-                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-report')"><span>📊</span> 任務七：月報異常分析<span class="sidebar-time">~8 分</span></li>
-                <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-complaint')"><span>📧</span> 任務八：客訴回覆信<span class="sidebar-time">~8 分</span></li>
+                <li class="sidebar-label">🎯 第四階段：角色分流</li>
+                <li class="sidebar-item sidebar-sub" onclick="showLesson('role-practice')"><span>👥</span> 四角色專案大挑戰<span class="sidebar-time">~20 分</span></li>
                 <li class="sidebar-item" onclick="showLesson('skills-library')"><span>🧰</span> 技能工具庫<span class="sidebar-time">~10 分</span></li>
                 <li class="sidebar-item" onclick="showLesson('advance')"><span>🚀</span> 第五階段：進階展示<span class="sidebar-time">~5 分</span></li>
             </ul>
@@ -831,173 +828,119 @@
                 <!-- ============================== -->
                 <!-- 任務五：報價單快速產生 -->
                 <!-- ============================== -->
-                <section id="practice-quote" class="lesson-section">
+                <section id="role-practice" class="lesson-section">
                     <div class="lesson-header">
-                        <span class="meta-tag">🏭 產業實戰</span>
-                        <h2>任務五：歷史報價 → 新報價單秒產</h2>
-                        <p class="mt-2 opacity-90">參考舊報價格式與新客戶需求，AI 自動幫你產出新報價。<span class="dept-badge dept-sales">業務</span></p>
+                        <span class="meta-tag">🎯 角色分流</span>
+                        <h2>四角色專案大挑戰：各挑一題，20 分鐘火力展示</h2>
+                        <p class="mt-2 opacity-90">前面 4 題是通用實戰，現在請依你的職能選一題，產出貼近你日常工作的真實成品。</p>
                     </div>
                     <div class="lesson-content">
 
-                        
+                        <div class="tip-box mb-8">
+                            <strong>📌 操作方式：</strong><br>
+                            1. 這四個題目對應了公司不同部門的日常痛點，請依你的職能「挑一題」實作。<br>
+                            2. 完成後請跟鄰座同事交換看成品 —— 體驗「把自己的痛點自動化」的跨部門驚艷時刻。
+                        </div>
 
-                        <div class="section-title">💰 情境說明</div>
-                        <p>業務最常遇到的場景：新客戶來詢價，你得翻出上次類似的報價單，然後一格一格改品項和數量⋯⋯現在，讓 AI 幫你秒完成！</p>
-                        <p class="mt-2">素材包裡有一份 <strong>報價單_磨漿機SG200_2025Q4.txt</strong>（永豐食品的歷史報價），現在假設大成豆品也來詢價，需要的規格跟永豐類似但數量不同。</p>
+                        <!-- 四張角色卡 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
 
-                        <div class="section-title mt-10">💬 一句話交辦！</div>
-
-                        <div class="code-container mt-4">
-                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
-                            <div class="code-block">請參考素材裡的歷史報價單「報價單_磨漿機SG200_2025Q4.txt」的格式和排版。
-現在大成豆品（聯絡人：王大成經理）需要報價，品項如下：
+                            <!-- 業務主管 -->
+                            <div class="bg-white p-6 rounded-xl border-2 border-blue-300 shadow-md transition hover:shadow-lg">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="text-3xl">💼</div>
+                                    <h3 class="text-xl font-bold text-blue-800">業務主管</h3>
+                                </div>
+                                <p class="text-gray-700 mb-3 text-sm"><strong>情境挑戰：</strong>新客戶大成豆品來詢價，你要翻出舊客戶「永豐食品」的歷史報價，套上新客戶名字、新數量，而且要<strong>維持跟原本一模一樣的專業 Excel 排版</strong>！</p>
+                                <div class="bg-blue-50 border-l-4 border-blue-400 p-3 mb-3 text-sm">
+                                    <p class="font-semibold text-blue-800 mb-1">📂 使用素材：</p>
+                                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                                        <li>報價單_磨漿機SG200_2025Q4.xlsx</li>
+                                    </ul>
+                                </div>
+                                <div class="code-container" style="margin:0;">
+                                    <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                                    <div class="code-block" style="font-size:0.85rem;">請參考素材裡的歷史報價單「報價單_磨漿機SG200_2025Q4.xlsx」的格式和排版。
+現在大成豆品需要報價，品項如下：
 - SG-200 磨漿機 x1
 - BT-500 煮漿機 x1
 - 碳化矽磨盤備品 x2 組
 - 安裝調試費 x1
 價格參考歷史報價單的單價（不需調整）。
-請幫我產出一份新的報價單 Excel，維持跟歷史報價一樣的專業排版。</div>
-                        </div>
+請幫我產出一份新的報價單 Excel，維持跟歷史報價一樣的專業排版，並加上合計。</div>
+                                </div>
+                            </div>
 
-                        <div class="self-check-box">
-                            <h4>✅ 任務五完成自我檢核</h4>
-                            <ul class="checklist">
-                                <li><input type="checkbox"> 資料夾中出現了新的報價單 Excel 檔</li>
-                                <li><input type="checkbox"> 報價單格式與歷史報價一致（表頭、框線、排版）</li>
-                                <li><input type="checkbox"> 客戶名稱已改為「大成豆品」，品項和數量正確</li>
-                                <li><input type="checkbox"> 合計金額計算正確</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ============================== -->
-                <!-- 任務六：技術規格書翻譯 -->
-                <!-- ============================== -->
-                <section id="practice-spec" class="lesson-section">
-                    <div class="lesson-header">
-                        <span class="meta-tag">🏭 產業實戰</span>
-                        <h2>任務六：中文規格書 → 英文技術文件</h2>
-                        <p class="mt-2 opacity-90">外銷客戶要英文規格書？30 秒搞定，而且用詞比你自己翻還專業！<span class="dept-badge dept-rd">研發</span><span class="dept-badge dept-ee">電機</span></p>
-                    </div>
-                    <div class="lesson-content">
-                        <div class="section-title">🔧 情境說明</div>
-                        <p>公司要開拓東南亞市場，劉經理催著要 SG-200 的英文規格書。以前自己翻，光是「碳化矽磨盤」要翻什麼就查了半天⋯⋯現在讓 AI 一鍵搞定！</p>
-                        <p class="mt-2">素材包裡有一份 <strong>設備規格書_磨漿機SG200.txt</strong>，這是完整的中文技術規格書。</p>
-
-                        <div class="section-title mt-10">💬 一句話交辦！</div>
-
-                        <div class="code-container mt-4">
-                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
-                            <div class="code-block">請讀取素材裡的「設備規格書_磨漿機SG200.txt」，幫我翻成專業的英文技術規格文件。
+                            <!-- 研發主管 -->
+                            <div class="bg-white p-6 rounded-xl border-2 border-emerald-300 shadow-md transition hover:shadow-lg">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="text-3xl">🔬</div>
+                                    <h3 class="text-xl font-bold text-emerald-800">研發主管</h3>
+                                </div>
+                                <p class="text-gray-700 mb-3 text-sm"><strong>情境挑戰：</strong>公司要開拓東南亞市場，劉經理催著要 SG-200 的英文技術規格書。你不用再一字一句查專業名詞，讓 AI 30 秒翻出專業規格，甚至自動保留表格結構。</p>
+                                <div class="bg-emerald-50 border-l-4 border-emerald-400 p-3 mb-3 text-sm">
+                                    <p class="font-semibold text-emerald-800 mb-1">📂 使用素材：</p>
+                                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                                        <li>設備規格書_磨漿機SG200.docx</li>
+                                    </ul>
+                                </div>
+                                <div class="code-container" style="margin:0;">
+                                    <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                                    <div class="code-block" style="font-size:0.85rem;">請讀取素材裡的「設備規格書_磨漿機SG200.docx」，幫我翻成專業的英文技術規格文件。
 要求：
 1. 產品名稱用 "Automatic Soy Milk Grinding Machine"
 2. 技術參數表格保留原始結構，數值保留公制
 3. 產出 Word 檔(.docx)，含封面頁（產品型號、中英文名稱、日期）
-4. 專業術語要用業界標準翻法（例如：碳化矽→Silicon Carbide, SUS304 不鏽鋼→SUS304 Stainless Steel）</div>
-                        </div>
+4. 專業術語要用業界標準翻法（例如：碳化矽→Silicon Carbide）</div>
+                                </div>
+                            </div>
 
-                        
-
-                        <div class="self-check-box">
-                            <h4>✅ 任務六完成自我檢核</h4>
-                            <ul class="checklist">
-                                <li><input type="checkbox"> 資料夾中出現了英文版技術規格書 Word 檔</li>
-                                <li><input type="checkbox"> 封面頁有產品型號和中英文名稱</li>
-                                <li><input type="checkbox"> 技術參數表格結構清晰、翻譯正確</li>
-                                <li><input type="checkbox"> 專業術語使用業界標準翻法</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ============================== -->
-                <!-- 任務七：月報表異常分析 -->
-                <!-- ============================== -->
-                <section id="practice-report" class="lesson-section">
-                    <div class="lesson-header">
-                        <span class="meta-tag">🏭 產業實戰</span>
-                        <h2>任務七：Q1 銷售報表 → 一頁主管摘要</h2>
-                        <p class="mt-2 opacity-90">把三個月份的數據交叉比對，2 分鐘出一份老闆看了秒懂的摘要。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
-                    </div>
-                    <div class="lesson-content">
-                        <div class="section-title">📊 情境說明</div>
-                        <p>素材包裡有一份 <strong>銷售月報_2026Q1.txt</strong>，包含今年 1~3 月各產品線的銷售數據、毛利率等資訊。你的任務是讓 AI 幫你找出異常、趨勢和重點，產出一份主管會議用的一頁摘要。</p>
-
-                        <div class="section-title mt-10">💬 一句話交辦！</div>
-
-                        <div class="code-container mt-4">
-                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
-                            <div class="code-block">請讀取素材裡的「銷售月報_2026Q1.txt」，幫我做一份主管會議摘要報告（Word 檔）。
+                            <!-- 電機/生管主管 -->
+                            <div class="bg-white p-6 rounded-xl border-2 border-orange-300 shadow-md transition hover:shadow-lg">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="text-3xl">⚡</div>
+                                    <h3 class="text-xl font-bold text-orange-800">電機 / 生管主管</h3>
+                                </div>
+                                <p class="text-gray-700 mb-3 text-sm"><strong>情境挑戰：</strong>月底要開會，你手上有一份落落長的 Q1 銷售與品質月報。你需要瞬間出「誰營收驟降」、「哪裡異常超標」，並整理成一頁老闆最愛看的摘要報告。</p>
+                                <div class="bg-orange-50 border-l-4 border-orange-400 p-3 mb-3 text-sm">
+                                    <p class="font-semibold text-orange-800 mb-1">📂 使用素材：</p>
+                                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                                        <li>銷售月報_2026Q1.xlsx</li>
+                                    </ul>
+                                </div>
+                                <div class="code-container" style="margin:0;">
+                                    <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                                    <div class="code-block" style="font-size:0.85rem;">請讀取素材裡的「銷售月報_2026Q1.xlsx」，幫我做一份主管會議摘要報告（Word 檔）。
 要求：
 1. 控制在一頁 A4 以內
 2. 結構：整體趨勢 → 明星產品 Top 3 → 需關注警示項目 → 建議行動
-3. 找出月對月業績波動超過 30% 的異常
-4. 找出毛利率偏低（低於 35%）的產品
-5. 標明數據來自哪個月份
-6. 檔名：主管摘要_2026年Q1銷售分析.docx</div>
-                        </div>
-
-                        <div class="self-check-box">
-                            <h4>✅ 任務七完成自我檢核</h4>
-                            <ul class="checklist">
-                                <li><input type="checkbox"> 資料夾中出現了「主管摘要_2026年Q1銷售分析.docx」</li>
-                                <li><input type="checkbox"> 報告結構清晰（趨勢 → Top 3 → 警示 → 建議）</li>
-                                <li><input type="checkbox"> 二月營收驟降有被標記為異常（農曆年因素）</li>
-                                <li><input type="checkbox"> 整份報告控制在一頁 A4 以內</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- ============================== -->
-                <!-- 任務八：客訴回覆信產生 -->
-                <!-- ============================== -->
-                <section id="practice-complaint" class="lesson-section">
-                    <div class="lesson-header">
-                        <span class="meta-tag">🏭 產業實戰</span>
-                        <h2>任務八：客訴信 → 專業回覆 + 內部追蹤表</h2>
-                        <p class="mt-2 opacity-90">收到客訴不用慌！AI 同時幫你寫回覆信和填追蹤表。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
-                    </div>
-                    <div class="lesson-content">
-                        <div class="section-title">📧 情境說明</div>
-                        <p>素材包裡有一份 <strong>客訴信_大成豆品_機器滲漏.txt</strong>，這是大成豆品反映 SG-200 磨漿機滲漏的客訴信件。以前處理客訴，你得花大半天寫回覆、填追蹤表、通知內部⋯⋯ 現在一句話搞定！</p>
-
-                        <div class="section-title mt-10">💬 一句話交辦！</div>
-
-                        <div class="code-container mt-4">
-                            <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
-                            <div class="code-block">請讀取素材裡的「客訴信_大成豆品_機器滲漏.txt」，幫我做兩件事：
-
-第一：產出一封「對外回覆信」（Word 檔），語氣要誠懇專業、積極解決問題。結構包含：致歉→初步原因研判→改善措施與時程→後續聯繫方式（留空讓我填）。
-
-第二：產出一份「內部客訴追蹤表」（Excel 檔），把客訴信裡提到的每個問題各一列，欄位包含：問題描述、初步原因、改善對策（待填）、負責人（待填）、預計完成日（待填）、狀態（預設🔴待處理）。</div>
-                        </div>
-
-                        
-
-                        <div class="self-check-box">
-                            <h4>✅ 任務八完成自我檢核</h4>
-                            <ul class="checklist">
-                                <li><input type="checkbox"> 資料夾中出現了客訴回覆信 Word 檔</li>
-                                <li><input type="checkbox"> 回覆信語氣誠懇專業，不推諉</li>
-                                <li><input type="checkbox"> 資料夾中出現了客訴追蹤表 Excel 檔</li>
-                                <li><input type="checkbox"> 追蹤表中客訴信提到的 3 個問題各有一列</li>
-                                <li><input type="checkbox"> 狀態欄位預設為「🔴待處理」</li>
-                            </ul>
-                        </div>
-
-                        <div class="faq-box">
-                            <h4>❓ 常見狀況排解</h4>
-                            <div class="faq-item">
-                                <p class="faq-question">Q：AI 寫的回覆信語氣太官腔？</p>
-                                <p class="faq-answer">➡ 補充一句：「語氣再親切一點，像關心老客戶的感覺」。AI 會立刻調整！</p>
+3. 找出月對月業績波動超過 30% 的異常點並標示
+4. 找出毛利率偏低（低於 35%）的產品並給出可能原因</div>
+                                </div>
                             </div>
-                            <div class="faq-item">
-                                <p class="faq-question">Q：追蹤表裡的初步原因分析不太準？</p>
-                                <p class="faq-answer">➡ 這很正常！AI 的初步研判只是節省你從零開始的時間，真正的根因分析仍需要技術部門現場確認。</p>
+
+                            <!-- 行銷/客服主管 -->
+                            <div class="bg-white p-6 rounded-xl border-2 border-pink-300 shadow-md transition hover:shadow-lg">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="text-3xl">📧</div>
+                                    <h3 class="text-xl font-bold text-pink-800">行銷 / 客服主管</h3>
+                                </div>
+                                <p class="text-gray-700 mb-3 text-sm"><strong>情境挑戰：</strong>大成豆品反映機器滲漏的客訴信，你得在第一時間生出一封「語氣誠懇不推諉，同時展現專業」的對外安撫信，加上一份對內的客訴追蹤表。</p>
+                                <div class="bg-pink-50 border-l-4 border-pink-400 p-3 mb-3 text-sm">
+                                    <p class="font-semibold text-pink-800 mb-1">📂 使用素材：</p>
+                                    <ul class="text-gray-700 list-disc pl-5 space-y-1">
+                                        <li>客訴信_大成豆品_機器滲漏.txt</li>
+                                    </ul>
+                                </div>
+                                <div class="code-container" style="margin:0;">
+                                    <button class="copy-btn" onclick="copyPrompt(this)">📋 複製</button>
+                                    <div class="code-block" style="font-size:0.85rem;">請讀取素材裡的「客訴信_大成豆品_機器滲漏.txt」，幫我做兩件事：
+1. 對外信：產出一封「回覆信」（Word），含致歉→初步原因研判→改善時程。
+2. 對內表：產出「客訴追蹤表」（Excel），信裡的每個問題各一列，欄位含：問題、原因、對策、狀態(預設🔴待處理)。</div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </section>
 

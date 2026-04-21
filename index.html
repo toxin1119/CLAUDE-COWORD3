@@ -311,22 +311,23 @@
         }
         /* Learning Objectives Box */
         .objectives-box {
-            background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
-            border: 2px solid #86efac;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--success-color);
             border-radius: 16px;
             padding: 28px;
             margin: 0 0 28px;
         }
-        .objectives-box h3 { color: #15803d; font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; }
+        .objectives-box h3 { color: var(--primary-color); font-size: 1.2rem; font-weight: 800; margin-bottom: 16px; }
         .objectives-box ul {
             list-style: none; padding: 0; margin: 0 0 12px;
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
         }
-        .objectives-box ul li { color: #166534; font-weight: 600; font-size: 0.95rem; }
+        .objectives-box ul li { color: #374151; font-weight: 600; font-size: 0.95rem; }
         .objectives-time { color: #6b7280; font-size: 0.85rem; margin: 0; font-style: italic; }
         /* Pain-point opener */
         .pain-point-box {
-            background: linear-gradient(135deg, #1e3a5f 0%, #0f2942 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f2942 100%);
             color: white; border-radius: 16px; padding: 28px;
             margin: 0 0 30px; position: relative; overflow: hidden;
         }
@@ -344,16 +345,20 @@
         }
         /* Prerequisite check box */
         .prereq-box {
-            background: #eff6ff; border: 1px solid #bfdbfe;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #3b82f6;
             border-radius: 14px; padding: 24px; margin-bottom: 30px;
         }
         .prereq-box h4 { color: #1d4ed8; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
         /* Self-check box */
         .self-check-box {
-            background: #f0fdf4; border: 2px solid #86efac;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--success-color);
             border-radius: 14px; padding: 24px; margin-top: 28px;
         }
-        .self-check-box h4 { color: #15803d; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+        .self-check-box h4 { color: var(--primary-color); font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
         /* Checklist */
         .checklist { list-style: none; padding: 0; margin: 0; }
         .checklist li {
@@ -368,14 +373,39 @@
         }
         /* FAQ box */
         .faq-box {
-            background: #fffbeb; border: 1px solid #fde68a;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid var(--accent-color);
             border-radius: 14px; padding: 22px; margin-top: 20px;
         }
         .faq-box h4 { color: #92400e; font-size: 1rem; font-weight: 800; margin-bottom: 12px; }
         .faq-item { margin-bottom: 12px; }
         .faq-item:last-child { margin-bottom: 0; }
         .faq-question { font-weight: 700; color: #78350f; font-size: 0.9rem; margin: 0 0 4px; }
-        .faq-answer { color: #92400e; font-size: 0.88rem; margin: 0; padding-left: 12px; border-left: 2px solid #fcd34d; }
+        .faq-answer { color: #78350f; font-size: 0.88rem; margin: 0; padding-left: 12px; border-left: 2px solid var(--accent-color); }
+        /* Tip Box（講師小提醒） */
+        .tip-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 32px 0;
+            border-left: 5px solid var(--primary-color);
+            color: #4b5563;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        /* Challenge Header */
+        .challenge-header {
+            background: var(--primary-color);
+            padding: 16px 24px;
+        }
+        .challenge-header h3 {
+            color: white;
+            font-weight: 800;
+            font-size: 1.25rem;
+            text-align: center;
+            margin: 0;
+        }
         /* Dept badge */
         .dept-badge {
             display: inline-block; font-size: 0.72rem; font-weight: 700;
@@ -571,9 +601,9 @@
                             </p>
                         </div>
                         
-                        <div class="alert alert-info mt-6 bg-blue-50 border border-blue-200">
-                            <h3 class="font-bold text-blue-800 text-lg mb-2">🔍 成果驗證</h3>
-                            <p class="text-blue-900">
+                        <div class="alert alert-info mt-6" style="background:#eff6ff; border-color:#3b82f6;">
+                            <h3 class="font-bold mb-2" style="color:#1d4ed8;">🔍 成果驗證</h3>
+                            <p style="color:#1e40af;">
                                 很多新手會誤以為「AI 做的東西 100% 正確」。請記住最佳實務核心：<strong>「信任，但要驗證 (Trust, but Verify)」</strong>！<br>
                                 AI 是你極度高效的實習生，它可以幫你省下 90% 的搬磚苦力活（如：抓取客戶 PO 金額、整理供應商報價）。<br>
                                 但 <strong>最後 10% 的數值真偽與邏輯判斷</strong>，責任依然在人類主管（也就是你）身上！送出報價單或出貨前，請務必抽驗關鍵數字。
@@ -658,7 +688,7 @@
 第三步：另外產出一份品管異常報告 Word 檔，寫出哪些項目不合格、建議的改善方向。</div>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 講師小提醒：此過程中你會看到 AI 直接利用寫檔能力將 .xlsx 與 .docx 生成到您的資料夾中！它甚至能自動加上條件格式，讓不合格項目一目了然——這在製造業的品管流程中極為實用。
                         </div>
 
@@ -710,7 +740,7 @@
 請維持原本出貨單的排版格式不要破壞，填好後存成一份新檔案「出貨單_大成豆品_2026-04-20.xlsx」給我。</div>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 講師小提醒：請學員打開生成的 Excel 檔，讓他們看看所有的框線、字體、甚至是原本的表頭結構都完好無缺！這個「保留原廠格式」的填單能力，是業務自動化最強大的武器。
                         </div>
 
@@ -777,7 +807,7 @@
                             </p>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 講師小提醒：學員操作後可以請大家打開手機上的 Google 日曆 App，親眼看到事件已經出現了！像採購部李專員「4/22 前取得磨盤 COA」的提醒，明天就會響！
                         </div>
 
@@ -808,16 +838,16 @@
                 <!-- 任務五：報價單快速產生 -->
                 <!-- ============================== -->
                 <section id="practice-quote" class="lesson-section">
-                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                    <div class="lesson-header">
                         <span class="meta-tag">🏭 產業實戰</span>
                         <h2>任務五：歷史報價 → 新報價單秒產</h2>
                         <p class="mt-2 opacity-90">參考舊報價格式與新客戶需求，AI 自動幫你產出新報價。<span class="dept-badge dept-sales">業務</span></p>
                     </div>
                     <div class="lesson-content">
 
-                        <div class="bg-amber-50 border border-amber-200 p-5 rounded-xl mb-6">
-                            <h4 class="font-bold text-amber-800 mb-2">☕ 講師可於此處安排 10 分鐘休息</h4>
-                            <p class="text-amber-700 text-sm">前四個任務完成基礎練習，接下來四個任務將深入你的日常製造業場景。建議在此休息後再繼續。</p>
+                        <div class="tip-box" style="font-style: normal; border-left-color: var(--accent-color);">
+                            <strong>☕ 講師可於此處安排 10 分鐘休息</strong><br>
+                            前四個任務完成基礎練習，接下來四個任務將深入你的日常製造業場景。建議在此休息後再繼續。
                         </div>
 
                         <div class="section-title">💰 情境說明</div>
@@ -854,7 +884,7 @@
                 <!-- 任務六：技術規格書翻譯 -->
                 <!-- ============================== -->
                 <section id="practice-spec" class="lesson-section">
-                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                    <div class="lesson-header">
                         <span class="meta-tag">🏭 產業實戰</span>
                         <h2>任務六：中文規格書 → 英文技術文件</h2>
                         <p class="mt-2 opacity-90">外銷客戶要英文規格書？30 秒搞定，而且用詞比你自己翻還專業！<span class="dept-badge dept-rd">研發</span><span class="dept-badge dept-ee">電機</span></p>
@@ -876,7 +906,7 @@
 4. 專業術語要用業界標準翻法（例如：碳化矽→Silicon Carbide, SUS304 不鏽鋼→SUS304 Stainless Steel）</div>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 講師小提醒：打開生成的 Word，讓學員驚豔於 AI 不只翻譯精準，還直接幫你加上了封面頁排版。要強調：這份英文規格書「可以直接寄給客戶」的完成度！不過仍要遵循「Trust, but Verify」原則——技術參數務必抽查。
                         </div>
 
@@ -896,7 +926,7 @@
                 <!-- 任務七：月報表異常分析 -->
                 <!-- ============================== -->
                 <section id="practice-report" class="lesson-section">
-                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                    <div class="lesson-header">
                         <span class="meta-tag">🏭 產業實戰</span>
                         <h2>任務七：Q1 銷售報表 → 一頁主管摘要</h2>
                         <p class="mt-2 opacity-90">把三個月份的數據交叉比對，2 分鐘出一份老闆看了秒懂的摘要。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
@@ -935,7 +965,7 @@
                 <!-- 任務八：客訴回覆信產生 -->
                 <!-- ============================== -->
                 <section id="practice-complaint" class="lesson-section">
-                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2D6A4F); border-bottom: 5px solid #4ade80;">
+                    <div class="lesson-header">
                         <span class="meta-tag">🏭 產業實戰</span>
                         <h2>任務八：客訴信 → 專業回覆 + 內部追蹤表</h2>
                         <p class="mt-2 opacity-90">收到客訴不用慌！AI 同時幫你寫回覆信和填追蹤表。<span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span></p>
@@ -955,7 +985,7 @@
 第二：產出一份「內部客訴追蹤表」（Excel 檔），把客訴信裡提到的每個問題各一列，欄位包含：問題描述、初步原因、改善對策（待填）、負責人（待填）、預計完成日（待填）、狀態（預設🔴待處理）。</div>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-8 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 講師小提醒：讓學員比較 AI 寫的回覆信跟自己平常寫的——通常 AI 的用詞更專業、結構更完整。但一定要強調：初步原因研判是 AI 的「合理推測」，最終判斷仍需要技術部門確認！
                         </div>
 
@@ -988,7 +1018,7 @@
                 <!-- 技能工具庫 -->
                 <!-- ============================== -->
                 <section id="skills-library" class="lesson-section">
-                    <div class="lesson-header" style="background: linear-gradient(135deg, #1e3a5f, #2d6a4f); border-bottom: 5px solid #4ade80;">
+                    <div class="lesson-header">
                         <span class="meta-tag">🎁 課後禮物</span>
                         <h2>技能工具庫：帶回家直接用！</h2>
                         <p class="mt-2 opacity-90">我們幫你做好了 12 個實用技能範本，下載後導入 Claude Desktop 就能反覆使用。</p>
@@ -1038,9 +1068,9 @@
                             <p class="text-gray-500 text-sm mt-2">▲ 觀念示意：Skill 就像是一個個可以隨插即用的 SOP 指令包，比傳統的 GPTs 更輕量且可疊加 <span class="italic text-gray-400">(圖片來源：雷蒙)<a href="#ref-4" class="text-blue-600 hover:text-blue-800 hover:underline ml-1">[註4]</a></span></p>
                         </div>
                         
-                        <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl my-6">
-                            <h4 class="text-xl font-bold text-indigo-800 mb-4 border-b border-indigo-200 pb-2">📂 操作步驟：複製貼上，30秒搞定</h4>
-                            <ol class="list-decimal list-inside space-y-3 text-indigo-900 text-lg">
+                        <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl my-6 shadow-sm">
+                            <h4 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">📂 操作步驟：複製貼上，30秒搞定</h4>
+                            <ol class="list-decimal list-inside space-y-3 text-slate-700 text-lg">
                                 <li>點擊下方你想要的工具卡片，下載附檔名為 <code>.md</code> 的檔案。</li>
                                 <li>用電腦內建的<strong>記事本</strong>（或文字編輯器）打開它，<strong>全選並複製</strong>裡面的所有文字。</li>
                                 <li>回到 Claude Desktop 軟體，點擊右上角或左側欄找到 <strong>Skills (技能)</strong> 選單。</li>
@@ -1048,17 +1078,17 @@
                                 <li>將你剛剛複製的文字，完整<strong>拖曳或貼入到指令欄位</strong>，儲存！</li>
                             </ol>
                             
-                            <h4 class="text-xl font-bold text-indigo-800 mt-8 mb-4 border-b border-indigo-200 pb-2">✨ 如何開始使用它？</h4>
-                            <p class="text-indigo-900 text-lg mb-2">以後每次交辦任務，你不需要再重寫一堆規則，只要使用斜線快捷鍵：</p>
-                            <ul class="list-none space-y-2 text-indigo-900 text-lg pl-4 border-l-4 border-indigo-400">
+                            <h4 class="text-xl font-bold text-slate-800 mt-8 mb-4 border-b pb-2">✨ 如何開始使用它？</h4>
+                            <p class="text-slate-700 text-lg mb-2">以後每次交辦任務，你不需要再重寫一堆規則，只要使用斜線快捷鍵：</p>
+                            <ul class="list-none space-y-2 text-slate-700 text-lg pl-4 border-l-4 border-gray-300">
                                 <li>👉 在對話框輸入斜線 <strong><code>/</code></strong> 就會跳出選單，點選你建好的技能（例如 <strong><code>/出貨</code></strong>）。</li>
                                 <li>👉 接著拖入客戶 PO 並按下 Enter，Claude 就會自動調用那個 SOP 幫你完美做事！</li>
                             </ul>
                         </div>
 
-                        <div class="bg-gradient-to-r from-teal-50 to-emerald-50 border-l-4 border-teal-500 p-6 rounded-xl my-8">
-                            <h4 class="text-lg font-bold text-teal-800 mb-2">💡 培訓核心理念：Skill 是活的，請大膽魔改！</h4>
-                            <p class="text-teal-900">
+                        <div class="tip-box">
+                            <h4>💡 培訓核心理念：Skill 是活的，請大膽魔改！</h4>
+                            <p>
                                 教學的最高境界是不要只當一個「使用者」，而是練習當一個「AI 應用設計者」。您可以隨時用記事本打開下載的 <code>.md</code> 檔案，把裡頭的規則改成符合你自己單位的真實 SOP。<br>
                                 <strong>如果您設計出了好用的新 SOP 提示詞，強烈鼓勵您分享到部門群組，讓全公司一起享受這份效率提升！</strong>
                             </p>
@@ -1140,45 +1170,45 @@
                         <p>專為我們設備製造業設計的自動化流程：</p>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                            <a href="skills/09_客戶PO轉出貨單.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                            <a href="skills/09_客戶PO轉出貨單.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-yellow-400 no-underline" style="border-left: 4px solid var(--accent-color);">
                                 <div class="flex items-center gap-3 mb-2">
                                     <div class="text-2xl">📦</div>
-                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/出貨</code>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/出貨</code>
                                     <span class="dept-badge dept-sales">業務</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-blue-700 mb-1">客戶 PO → 出貨單</h3>
+                                <h3 class="text-lg font-bold mb-1" style="color:var(--secondary-color);">客戶 PO → 出貨單</h3>
                                 <p class="text-gray-500 text-sm">讀取客戶採購單，自動填寫公司出貨單模板，含稅額計算</p>
                             </a>
-                            <a href="skills/10_技術規格書翻譯.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                            <a href="skills/10_技術規格書翻譯.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-yellow-400 no-underline" style="border-left: 4px solid var(--accent-color);">
                                 <div class="flex items-center gap-3 mb-2">
                                     <div class="text-2xl">🌐</div>
-                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/規格翻譯</code>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/規格翻譯</code>
                                     <span class="dept-badge dept-rd">研發</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-blue-700 mb-1">中文規格書 → 英文技術文件</h3>
+                                <h3 class="text-lg font-bold mb-1" style="color:var(--secondary-color);">中文規格書 → 英文技術文件</h3>
                                 <p class="text-gray-500 text-sm">含專業術語對照（磨漿機、碳化矽磨盤等），自帶封面頁</p>
                             </a>
-                            <a href="skills/11_客訴回覆信產生器.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                            <a href="skills/11_客訴回覆信產生器.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-yellow-400 no-underline" style="border-left: 4px solid var(--accent-color);">
                                 <div class="flex items-center gap-3 mb-2">
                                     <div class="text-2xl">🛡️</div>
-                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/客訴</code>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/客訴</code>
                                     <span class="dept-badge dept-sales">業務</span><span class="dept-badge dept-mkt">行銷</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-blue-700 mb-1">客訴內容 → 回覆信 + 追蹤表</h3>
+                                <h3 class="text-lg font-bold mb-1" style="color:var(--secondary-color);">客訴內容 → 回覆信 + 追蹤表</h3>
                                 <p class="text-gray-500 text-sm">同時產出對外回覆信（Word）與對內改善追蹤表（Excel）</p>
                             </a>
-                            <a href="skills/12_BOM表比對分析.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-blue-400 no-underline" style="border-left: 4px solid #3b82f6;">
+                            <a href="skills/12_BOM表比對分析.md" download class="block bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition hover:shadow-md hover:border-yellow-400 no-underline" style="border-left: 4px solid var(--accent-color);">
                                 <div class="flex items-center gap-3 mb-2">
                                     <div class="text-2xl">🔍</div>
-                                    <code class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm font-bold">/BOM比對</code>
+                                    <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-bold">/BOM比對</code>
                                     <span class="dept-badge dept-rd">研發</span><span class="dept-badge dept-ee">電機</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-blue-700 mb-1">新舊 BOM 表 → 差異分析報告</h3>
+                                <h3 class="text-lg font-bold mb-1" style="color:var(--secondary-color);">新舊 BOM 表 → 差異分析報告</h3>
                                 <p class="text-gray-500 text-sm">自動比對新增/刪除/變更料件，含影響評估與成本分析</p>
                             </a>
                         </div>
 
-                        <div class="bg-gray-50 p-5 mt-6 border-l-4 border-green-500 rounded-r-lg italic text-gray-600">
+                        <div class="tip-box">
                             💡 小秘訣：這些技能只是起點！你可以用記事本打開任何一個 .md 檔案來看它怎麼寫的，然後照樣改成你自己部門的 SOP。比如「每次客戶下單自動產出生產工單」、「每月自動彙整設備保養記錄」等等……想到什麼就做什麼！
                         </div>
                     </div>
@@ -1236,16 +1266,16 @@
                         </div>
                         
                         <!-- 課後挑戰區塊 -->
-                        <div class="mt-16 border-2 border-indigo-200 shadow-xl rounded-2xl overflow-hidden">
-                            <div class="bg-indigo-600 px-6 py-4">
-                                <h3 class="text-white font-bold text-xl text-center">🏁 結訓挑戰：把你的第一件雜事交辦出去！</h3>
+                        <div class="mt-16 border-2 shadow-xl rounded-2xl overflow-hidden" style="border-color: var(--primary-color);">
+                        <div class="challenge-header">
+                                <h3>🏁 結訓挑戰：把你的第一件雜事交辦出去！</h3>
                             </div>
-                            <div class="p-8 text-center bg-indigo-50">
+                            <div class="p-8 text-center" style="background:#f0fdf4;">
                                 <p class="text-gray-700 text-lg mb-6">
                                     教學看再多，不如親自動手做一次！真正的學習發生在課程結束之後：
                                 </p>
-                                <div class="inline-block text-left bg-white p-6 rounded-xl shadow-sm border border-indigo-100 mb-6 max-w-2xl w-full">
-                                    <ul class="space-y-4 text-indigo-900">
+                                <div class="inline-block text-left bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6 max-w-2xl w-full">
+                                    <ul class="space-y-4" style="color:#166534;">
                                         <li class="flex items-start"><span class="mr-3 text-xl">1️⃣</span> 回想一件你部門裡最討厭的重複文書（報價、客訴、BOM 比對、報表整理……）。</li>
                                         <li class="flex items-start"><span class="mr-3 text-xl">2️⃣</span> 從上方的技能庫（12 個）中，下載一個最接近的 Skill 範本，用記事本修改成你部門專用的 SOP。</li>
                                         <li class="flex items-start"><span class="mr-3 text-xl">3️⃣</span> 在 Cowork 實際跑一次，並將成功的對話截圖與心得，分享到公司的內部溝通群組！</li>

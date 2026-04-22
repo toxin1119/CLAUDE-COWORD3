@@ -8,129 +8,168 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        /* === 與 index.html 共用的 Design Tokens === */
         :root {
-            --primary-color: #007E39;
-            --secondary-color: #2D6A4F;
-            --accent-color: #f59e0b;
+            --primary:       #007E39;
+            --primary-dark:  #005A28;
+            --primary-light: #e8f5ee;
+            --accent:        #e08a00;
+            --accent-light:  #fef3c7;
+            --success:  #10b981;
+            --border:   #e2e8f0;
+            --surface:  #ffffff;
+            --surface-alt: #f8fafc;
+            --text-dark: #1e293b;
+            --text-mid:  #475569;
+            --r-sm:  8px;
+            --r-md:  14px;
+            --r-lg:  20px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+            --shadow-lg: 0 10px 32px rgba(0,0,0,0.10);
         }
 
         body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: #f8fafc;
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background: var(--surface-alt);
             background-image:
                 radial-gradient(at 0% 0%, hsla(145, 100%, 96%, 1) 0, transparent 50%),
                 radial-gradient(at 100% 0%, hsla(156, 100%, 94%, 1) 0, transparent 50%);
-            color: #1e293b;
+            color: var(--text-dark);
             line-height: 1.8;
-            padding: 40px 20px;
+            padding: 36px 20px;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: var(--surface);
+            border-radius: var(--r-lg);
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
         }
 
+        /* === Header — 與 lesson-header 同風格 === */
         .header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 40px;
-            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
             text-align: center;
         }
-
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 180px; height: 180px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px; left: 40px;
+            width: 120px; height: 120px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             margin-bottom: 10px;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            position: relative;
         }
-
-        .content {
-            padding: 40px;
-        }
-
-        .method-box {
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
+        .header p {
+            opacity: 0.88;
             position: relative;
         }
 
-        .method-box.manual { border-color: #93c5fd; background-color: #eff6ff; }
+        .content { padding: 40px; }
+
+        /* === Method Boxes === */
+        .method-box {
+            border: 2px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 30px;
+            margin-bottom: 36px;
+            position: relative;
+        }
+        .method-box.manual  { border-color: #93c5fd; background-color: #eff6ff; }
         .method-box.dynamic { border-color: #fde047; background-color: #fefce8; }
 
         .method-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .method-box.manual .method-title { color: #1e40af; }
+        .method-box.manual  .method-title { color: #1e40af; }
         .method-box.dynamic .method-title { color: #854d0e; }
 
         .badge {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 999px;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
-
-        .method-box.manual .badge { background: #dbeafe; color: #1e40af; }
+        .method-box.manual  .badge { background: #dbeafe; color: #1e40af; }
         .method-box.dynamic .badge { background: #fef08a; color: #854d0e; }
 
-        /* Code Block */
-        .code-container { position: relative; margin: 20px 0; }
+        /* === Code Block — 與 index.html 同規格 === */
+        .code-container { position: relative; margin: 18px 0; }
         .code-block {
             background: #1e293b;
-            color: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 0.95em;
-            line-height: 1.7;
+            color: #e2f0ff;
+            padding: 20px 60px 20px 22px;
+            border-radius: var(--r-md);
+            font-family: 'Menlo', 'Consolas', monospace;
+            font-size: 0.92em;
+            line-height: 1.75;
+            border: 1px solid #334155;
             white-space: pre-wrap;
         }
         .copy-btn {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
+            top: 10px; right: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.75);
+            padding: 5px 12px;
+            border-radius: var(--r-sm);
             cursor: pointer;
-            font-size: 0.85em;
+            font-size: 0.78em;
             transition: all 0.2s;
         }
-        .copy-btn:hover { background: rgba(255, 255, 255, 0.25); }
-        .copy-btn.copied { background: #10b981; border-color: #10b981; }
+        .copy-btn:hover { background: rgba(255,255,255,0.18); color: white; }
+        .copy-btn.copied { background: var(--success); border-color: var(--success); color: white; }
 
+        /* === Back Link === */
         .back-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             margin-top: 20px;
-            padding: 12px 24px;
-            background: var(--primary-color);
+            padding: 12px 28px;
+            background: var(--primary);
             color: white;
             text-decoration: none;
             border-radius: 999px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 700;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-md);
         }
-        .back-link:hover { background: var(--secondary-color); transform: translateY(-2px); }
+        .back-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,126,57,0.3);
+        }
     </style>
 </head>
 

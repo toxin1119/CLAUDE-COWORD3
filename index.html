@@ -1106,36 +1106,47 @@
                         <p class="mt-3">Memory 讓 Claude 可以記住你在不同對話中提過的事情。打開後，Claude 會自動整理你的偏好、常用工具、工作習慣等資訊——<strong>越用越懂你，不需要每次都從頭解釋。</strong></p>
                         <div class="alert alert-info mt-4">
                             <strong>從 ChatGPT 搬家？</strong> 在 Memory 頁面可以找到匯入功能，把舊的記憶資料一鍵搬過來。<br>
-                            💡 你可以隨時到 Settings → Capabilities → Memory 查看 Claude 記住了什麼，也可以手動編輯或刪除。
-                        </div>
-                        <!-- 截圖佔位 -->
-                        <div class="my-5 text-center">
-                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
-                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
-                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → Capabilities → Memory 開關頁面</p>
-                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Memory 切換開關的位置</p>
+                            💡 你可以隨�                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Customize → Skills</span></p>
+                        <p class="mt-2">點擊左側「Customize」進入 Skills 頁面，你會看到兩個區塊：</p>
+
+                        <div class="faq-box mt-4">
+                            <div class="faq-item">
+                                <p class="faq-question">📂 Directory（官方 Skills 目錄）</p>
+                                <p class="faq-answer">Anthropic 提供的各類專業工具包，例如 /internal-comms（撰寫公司內部通知）、/canvas-design（設計圖）等。<strong>本課程全部不需要安裝</strong>——建立 Excel/Word/PDF 的能力已由 Step 3b 的 Capabilities 開關控制，不需要額外 Skill。</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">🏭 自訂 Skills（課程重點！）</p>
+                                <p class="faq-answer">這才是本課程的主軸：把大地興的 12 份公司 SOP（.md 格式）建立成 Skills，讓 Claude 永久記住你們的作業流程。</p>
                             </div>
                         </div>
 
-                        <!-- ========== Step 3+4：Connectors & Capabilities ========== -->
-                        <div class="section-title">Step 3 ＋ 4　接上外部工具 ＆ 打開所有能力</div>
+                        <p class="font-semibold text-slate-700 mt-6 mb-1">如何建立公司 SOP Skills？</p>
+                        <p>共有兩種方式，以<strong>方法一（手動）為主</strong>：</p>
 
-                        <p class="font-semibold text-slate-700 mt-2 mb-1">3a. 接上 Connectors（外部工具串接）</p>
-                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Customize → Connect your apps</span></p>
-                        <p class="mt-2">Connectors 讓 Claude 能直接存取你的外部工具。點擊左側選單的「<strong>Customize</strong>」，找到「<strong>Connect your apps</strong>」。目前支援的串接包含：</p>
-                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
-                            <li><strong>Google Drive</strong> — 讀取、搜尋你的雲端文件</li>
-                            <li><strong>Gmail</strong> — 讀取信件、搜尋郵件內容</li>
-                            <li><strong>Google Calendar</strong> — 查看行程、建立活動（課程任務四會用到！）</li>
-                            <li><strong>Notion</strong> — 讀取和管理你的筆記資料庫</li>
-                            <li>Slack、GitHub、Linear 等更多工具</li>
-                        </ul>
-                        <div class="tip-box">
-                            <h4>🔒 安全提醒</h4>
-                            <p>Connectors 只有讀取權限，不會自動修改或刪除你的資料，可以放心使用。接上後，你可以直接在對話中說「幫我查今天的行程」或「找一下 Drive 裡面那份報告」，Claude 就會自己去拿資料。</p>
+                        <div class="faq-box mt-3">
+                            <div class="faq-item">
+                                <p class="faq-question">🛠️ 方法一：手動逐一建立（主要方式）</p>
+                                <p class="faq-answer">
+                                    ① 用記事本開啟 <code>skills</code> 資料夾裡的 .md 檔（如 <code>09_客戶PO轉出貨單.md</code>）<br>
+                                    ② 全選並複製所有文字<br>
+                                    ③ 回到 Claude → Customize → Skills → 點「<strong>+ Create Skill</strong>」<br>
+                                    ④ Name 填<strong>英文識別碼</strong>（⚠️ 不支援中文），Instructions 貼上複製的內容<br>
+                                    ⑤ 儲存。重複以上步驟完成需要的 SOP。<br><br>
+                                    <strong>優點：</strong>永久綁定帳號，跨對話、跨時間都能直接呼叫。
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">🔥 方法二：動態載入（快速展示用）</p>
+                                <p class="faq-answer">
+                                    在 Cowork 模式開啟對話，Work in a Folder 選取包含 skills 的資料夾，貼上載入咒語，Claude 會一次讀取 12 份 SOP 並記住。<br><br>
+                                    <strong>限制：</strong>開新對話後 Claude 會忘記，需再貼一次。適合課程展示或臨時使用。
+                                </p>
+                            </div>
                         </div>
-                        <!-- 截圖佔位 -->
-                        <div class="my-5 text-center">
+
+                        <div class="quick-links mt-5">
+                            <a href="skills_guide.html" target="_blank" class="btn-pill">🧰 查看完整 Skills 載入教學（含中英對照表與載入咒語）</a>
+                        </div> text-center">
                             <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
                                 <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
                                 <p style="font-weight:700;color:#64748b;">【待補截圖】Customize → Connect your apps 頁面</p>
@@ -1145,67 +1156,93 @@
 
                         <p class="font-semibold text-slate-700 mt-6 mb-1">3b. Capabilities 全部打開</p>
                         <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → Capabilities</span></p>
-                        <p class="mt-2">Capabilities 是 Claude 的能力開關——很多人裝完 Claude 不知道這些功能需要<strong>手動開啟</strong>。打開 Settings → Capabilities，你會看到十幾個開關：</p>
-                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
-                            <li><strong>Web Search</strong> — 即時搜尋網路資訊</li>
-                            <li><strong>Analysis</strong> — 分析資料、製作圖表</li>
-                            <li><strong>File Upload &amp; Creation</strong> — 上傳和建立檔案（Excel、Word、PDF）</li>
-                            <li><strong>Code Execution</strong> — 執行程式碼</li>
-                            <li><strong>Memory</strong> — 記憶功能（Step 2 已設定）</li>
+                        <p class="mt-2">Capabilities 是 Claude 的能力開關，分為幾個區塊。很多人裝完 Claude 不知道這些功能需要<strong>手動開啟</strong>。以下是各區塊的重要開關：</p>
+
+                        <p class="font-semibold text-slate-700 mt-4 mb-1">🧠 Memory（記憶）</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base mb-3">
+                            <li><strong>Search and reference chats</strong> — 讓 Claude 搜尋過去的對話記錄作為參考</li>
+                            <li><strong>Generate memory from chat history</strong> — 自動從對話中歸納記憶（即 Step 2 的核心功能）</li>
+                            <li><strong>Import memory from other AI providers</strong> — 從 ChatGPT 等其他 AI 匯入記憶資料</li>
                         </ul>
+
+                        <p class="font-semibold text-slate-700 mt-4 mb-1">🎨 Visuals（視覺化）</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base mb-3">
+                            <li><strong>Artifacts</strong> — 讓 Claude 在對話旁的獨立視窗呈現程式碼、文件等內容（預設已開）</li>
+                            <li><strong>Inline visualizations</strong> — 在對話中直接生成互動式圖表（預設已開）</li>
+                            <li><strong>AI-powered artifacts</strong> — 建立可使用 Claude API 的互動應用程式（進階，選用）</li>
+                        </ul>
+
+                        <p class="font-semibold text-slate-700 mt-4 mb-1">⚙️ Code execution and file creation（程式執行與檔案建立）</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base mb-3">
+                            <li><strong>Cloud code execution and file creation</strong> — <span class="text-red-600 font-bold">最重要！</span>讓 Claude 在雲端伺服器執行程式碼，並直接建立和編輯文件、試算表、簡報、PDF 等實體檔案。Skills 功能也需要此項目開啟</li>
+                            <li><strong>Allow network egress</strong> — 允許 Claude 連網安裝套件進行進階分析（有安全風險，建議保持預設關閉）</li>
+                        </ul>
+
                         <div class="alert alert-warning">
-                            ⚠️ <strong>裝完沒開等於沒裝！</strong>這些功能全部包含在你的 Pro 訂閱方案中，不需要額外付費，建議全部打開。
+                            ⚠️ <strong>最關鍵的一個開關：「Cloud code execution and file creation」</strong><br>
+                            這個開關控制 Claude 能否實際產出 Excel、Word、PDF 等真實檔案——課程中的所有任務都依賴它。請確認已開啟！
                         </div>
-                        <!-- 截圖佔位 -->
+
+                        <!-- 截圖：擷圖-13 -->
                         <div class="my-5 text-center">
-                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
-                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
-                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → Capabilities 開關頁面</p>
-                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Web Search、Analysis、File Upload 等開關全開的狀態</p>
-                            </div>
+                            <img src="擷圖-13.png"
+                                 alt="Capabilities 頁面 - Memory 與 Tool access 區塊"
+                                 class="rounded-xl shadow border border-gray-200 mx-auto h-auto"
+                                 style="max-width:100%; max-height:360px; object-fit:contain;">
+                            <p class="text-gray-500 text-sm mt-2">▲ Settings → Capabilities：Memory 區塊（Search and reference chats、Generate memory from chat history）</p>
+                        </div>
+                        <!-- 截圖：擷圖-14 -->
+                        <div class="my-5 text-center">
+                            <img src="擷圖-14.png"
+                                 alt="Capabilities 頁面 - Visuals 與 Code execution 區塊"
+                                 class="rounded-xl shadow border border-gray-200 mx-auto h-auto"
+                                 style="max-width:100%; max-height:360px; object-fit:contain;">
+                            <p class="text-gray-500 text-sm mt-2">▲ Visuals 區塊 + Code execution and file creation 區塊，其中「Cloud code execution and file creation」為最關鍵開關</p>
                         </div>
 
                         <!-- ========== Step 5：Skills ========== -->
-                        <div class="section-title">Step 5　開啟官方 Skills ＋ 載入公司 SOP 技能</div>
+                        <div class="section-title">Step 5　載入公司 SOP 技能（Skills）</div>
                         <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Customize → Skills</span></p>
-                        <p class="mt-2">Skills 是 Claude 的模組化技能包，分為兩種：</p>
+                        <p class="mt-2">點擊左側「Customize」進入 Skills 頁面，你會看到兩個區塊：</p>
 
-                        <p class="font-semibold text-slate-700 mt-4 mb-1">① 官方內建 Skills（馬上開啟）</p>
-                        <p>點擊「Customize → Skills」，你會看到官方預設的技能模組：</p>
-                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
-                            <li><strong>簡報製作（.pptx）</strong> — 自動生成專業簡報</li>
-                            <li><strong>試算表（.xlsx）</strong> — 建立和分析 Excel 檔案</li>
-                            <li><strong>PDF 處理</strong> — 讀取、合併、建立 PDF</li>
-                            <li><strong>Word 文件（.docx）</strong> — 製作專業文件</li>
-                            <li><strong>排程任務（Schedule）</strong> — 設定定時自動執行</li>
-                        </ul>
-                        <p>把它們<strong>全部開啟</strong>，Claude 會根據你的需求自動判斷什麼時候該使用哪個 Skill。</p>
-                        <!-- 截圖佔位 -->
-                        <div class="my-5 text-center">
-                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
-                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
-                                <p style="font-weight:700;color:#64748b;">【待補截圖】Customize → Skills 頁面（官方技能列表）</p>
-                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：xlsx、pptx、docx、PDF 技能全部啟用的狀態</p>
-                            </div>
-                        </div>
-
-                        <p class="font-semibold text-slate-700 mt-4 mb-1">② 自訂 Skills：載入公司 SOP（課程主軸！）</p>
-                        <p>我們為大地興準備了 12 份公司 SOP 格式的技能範本（位於 <code>skills</code> 資料夾），有兩種方式可以載入：</p>
-                        <div class="quick-links mt-4">
-                            <a href="skills_guide.html" target="_blank" class="btn-pill">🧰 查看完整 Skills 載入教學（補充教材）</a>
-                        </div>
                         <div class="faq-box mt-4">
-                            <h4>📌 兩種載入方式快速對比</h4>
                             <div class="faq-item">
-                                <p class="faq-question">🛠️ 方法一：手動正規版（Customize → Skills → Create Skill）</p>
-                                <p class="faq-answer">永久綁定帳號，跨對話可用，適合個人常用技能。Name 欄位需填英文（範例對照表在補充教材中）。</p>
+                                <p class="faq-question">📂 Directory（官方 Skills 目錄）</p>
+                                <p class="faq-answer">Anthropic 提供的各類專業工具包（如 /internal-comms 撰寫內部通知等）。<strong>本課程全部不需要安裝</strong>——建立 Excel/Word/PDF 的能力已由 Step 3b 的 Capabilities 開關控制，與這裡無關。</p>
                             </div>
                             <div class="faq-item">
-                                <p class="faq-question">🔥 方法二：動態載入神招（一次批次掛載所有 SOP）</p>
-                                <p class="faq-answer">用一段提示詞讓 AI 現場讀取 skills 資料夾所有 .md 檔，適合展示或部門共用，開新對話需重新載入。</p>
+                                <p class="faq-question">🏭 自訂 Skills（課程重點！）</p>
+                                <p class="faq-answer">這才是本課程的主軸：把大地興的 12 份公司 SOP（.md 格式）建立成 Skills，讓 Claude 永久記住你們的作業流程。</p>
                             </div>
                         </div>
 
+                        <p class="font-semibold text-slate-700 mt-6 mb-1">如何建立公司 SOP Skills？</p>
+                        <p>共有兩種方式，以<strong>方法一（手動）為主</strong>：</p>
+
+                        <div class="faq-box mt-3">
+                            <div class="faq-item">
+                                <p class="faq-question">🛠️ 方法一：手動逐一建立（主要方式）</p>
+                                <p class="faq-answer">
+                                    ① 用記事本開啟 <code>skills</code> 資料夾裡的 .md 檔（如 <code>09_客戶PO轉出貨單.md</code>）<br>
+                                    ② 全選並複製所有文字<br>
+                                    ③ 回到 Claude → Customize → Skills → 點「<strong>+ Create Skill</strong>」<br>
+                                    ④ Name 填<strong>英文識別碼</strong>（⚠️ 不支援中文），Instructions 貼上複製的內容<br>
+                                    ⑤ 儲存。重複以上步驟完成需要的 SOP。<br><br>
+                                    <strong>優點：</strong>永久綁定帳號，跨對話、跨時間都能直接呼叫。
+                                </p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">🔥 方法二：動態載入（快速展示用）</p>
+                                <p class="faq-answer">
+                                    在 Cowork 模式開啟對話，Work in a Folder 選取包含 skills 的資料夾，貼上載入咒語，Claude 會一次讀取 12 份 SOP 並記住。<br><br>
+                                    <strong>限制：</strong>開新對話後 Claude 會忘記，需再貼一次。適合課程展示或臨時使用。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="quick-links mt-5">
+                            <a href="skills_guide.html" target="_blank" class="btn-pill">🧰 查看完整 Skills 載入教學（含中英對照表與載入咒語）</a>
+                        </div>
                         <!-- ========== Step 6：Claude in Chrome ========== -->
                         <div class="section-title">Step 6　安裝 Claude in Chrome <span class="meta-tag dept-all" style="font-size:0.72rem;vertical-align:middle;">Pro / Max</span></div>
                         <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → Claude in Chrome</span></p>
@@ -1261,7 +1298,7 @@
                             <li><input type="checkbox"> <strong>Step 2</strong>：Memory 功能已開啟</li>
                             <li><input type="checkbox"> <strong>Step 3a</strong>：至少接上 Google Calendar（課程任務四需要）</li>
                             <li><input type="checkbox"> <strong>Step 3b</strong>：Capabilities 所有功能已全部開啟</li>
-                            <li><input type="checkbox"> <strong>Step 5</strong>：官方 Skills（xlsx、pptx、docx）已全部啟用</li>
+                            <li><input type="checkbox"> <strong>Step 5</strong>：已了解如何將 12 份公司 SOP 建立為自訂 Skills（可稍後全部載入）</li>
                             <li><input type="checkbox"> <strong>Step 6</strong>：Claude in Chrome 擴充功能已安裝並釘選</li>
                             <li><input type="checkbox"> <strong>Step 7</strong>：Browser Use ＋ Computer Use 已開啟</li>
                         </ul>

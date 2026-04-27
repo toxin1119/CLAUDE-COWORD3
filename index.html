@@ -719,6 +719,7 @@
             <ul class="sidebar-menu">
                 <li class="sidebar-item active" onclick="showLesson('intro', this)"><span>💡</span> 第一階段：觀念破冰<span class="sidebar-time">~15 分</span></li>
                 <li class="sidebar-item" onclick="showLesson('setup', this)"><span>🖥️</span> 第二階段：介面介紹<span class="sidebar-time">~10 分</span></li>
+                <li class="sidebar-item" onclick="showLesson('initial-setup', this)"><span>⚙️</span> 開機設定 7 步驟<span class="sidebar-time">~10 分</span></li>
                 <li class="sidebar-label">⚡ 第三階段：基礎實戰</li>
                 <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-files', this)"><span>📂</span> 任務一：檔案收納術<span class="sidebar-time">~8 分</span></li>
                 <li class="sidebar-item sidebar-sub" onclick="showLesson('practice-ocr', this)"><span>📝</span> 任務二：紙本轉電子<span class="sidebar-time">~10 分</span></li>
@@ -745,31 +746,35 @@
                 </div>
                 <div class="progress-connector" id="conn-2"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="practice-files" data-label="任務一" onclick="showLessonByDot('practice-files')">3</div>
+                    <div class="progress-dot" data-section="initial-setup" data-label="開機設定" onclick="showLessonByDot('initial-setup')">3</div>
                 </div>
                 <div class="progress-connector" id="conn-3"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="practice-ocr" data-label="任務二" onclick="showLessonByDot('practice-ocr')">4</div>
+                    <div class="progress-dot" data-section="practice-files" data-label="任務一" onclick="showLessonByDot('practice-files')">4</div>
                 </div>
                 <div class="progress-connector" id="conn-4"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="practice-form" data-label="任務三" onclick="showLessonByDot('practice-form')">5</div>
+                    <div class="progress-dot" data-section="practice-ocr" data-label="任務二" onclick="showLessonByDot('practice-ocr')">5</div>
                 </div>
                 <div class="progress-connector" id="conn-5"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="practice-calendar" data-label="任務四" onclick="showLessonByDot('practice-calendar')">6</div>
+                    <div class="progress-dot" data-section="practice-form" data-label="任務三" onclick="showLessonByDot('practice-form')">6</div>
                 </div>
                 <div class="progress-connector" id="conn-6"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="role-practice" data-label="角色挑戰" onclick="showLessonByDot('role-practice')">7</div>
+                    <div class="progress-dot" data-section="practice-calendar" data-label="任務四" onclick="showLessonByDot('practice-calendar')">7</div>
                 </div>
                 <div class="progress-connector" id="conn-7"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="skills-library" data-label="技能工具庫" onclick="showLessonByDot('skills-library')">8</div>
+                    <div class="progress-dot" data-section="role-practice" data-label="角色挑戰" onclick="showLessonByDot('role-practice')">8</div>
                 </div>
                 <div class="progress-connector" id="conn-8"></div>
                 <div class="progress-step">
-                    <div class="progress-dot" data-section="advance" data-label="進階展示" onclick="showLessonByDot('advance')">9</div>
+                    <div class="progress-dot" data-section="skills-library" data-label="技能工具庫" onclick="showLessonByDot('skills-library')">9</div>
+                </div>
+                <div class="progress-connector" id="conn-9"></div>
+                <div class="progress-step">
+                    <div class="progress-dot" data-section="advance" data-label="進階展示" onclick="showLessonByDot('advance')">10</div>
                 </div>
             </div>
 
@@ -1043,7 +1048,227 @@
                         </ul>
 </div>
                     <div class="section-nav">
-                        <button class="nav-btn" onclick="goNext('setup')">任務一：檔案收納術 →</button>
+                        <button class="nav-btn" onclick="goNext('setup')">開機設定 7 步驟 →</button>
+                    </div>
+                </section>
+
+                <!-- ============================== -->
+                <!-- 開機設定 7 步驟                  -->
+                <!-- ============================== -->
+                <section id="initial-setup" class="lesson-section">
+                    <div class="lesson-header">
+                        <span class="meta-tag">Pro 帳號必做</span>
+                        <h2>開機設定 7 步驟：從「能用」到「好用」</h2>
+                        <p>裝完 Claude 桌面版之後，花 10 分鐘完成這 7 件事，讓它真正認識你、幫你省時間。</p>
+                        <div class="lesson-step-badge">⚙️</div>
+                    </div>
+                    <div class="lesson-content">
+
+                        <div class="objectives-box">
+                            <h3>📋 完成後，你的 Claude 將會……</h3>
+                            <div class="objectives-grid">
+                                <div class="objective-item"><span class="obj-check">✅</span>用繁體中文回覆、說話風格符合你的偏好</div>
+                                <div class="objective-item"><span class="obj-check">✅</span>記住你的慣用工具與工作習慣，越用越懂你</div>
+                                <div class="objective-item"><span class="obj-check">✅</span>直接讀取 Google Drive、Calendar、Gmail</div>
+                                <div class="objective-item"><span class="obj-check">✅</span>一鍵產生 Excel、Word、PDF 等實體檔案</div>
+                                <div class="objective-item"><span class="obj-check">✅</span>透過瀏覽器幫你填表單、操作網頁應用程式</div>
+                                <div class="objective-item"><span class="obj-check">✅</span>直接操控電腦桌面，跨應用程式自動執行任務</div>
+                            </div>
+                            <p class="objectives-time">⏱ 預計設定時間：約 10 分鐘｜🔵 Pro 帳號全功能適用</p>
+                        </div>
+
+                        <!-- ========== Step 1：Profile ========== -->
+                        <div class="section-title">Step 1　設定 Profile（個人檔案）</div>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → General → Profile</span></p>
+                        <p class="mt-3">Profile 是 Claude 認識你的第一步。打開 <strong>Settings → General</strong>，你會看到一個 Profile 文字框。在這裡寫下：</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
+                            <li>你的名字、職業、產業（例如：我是大地興機器廠的業務主管）</li>
+                            <li>你希望 Claude <strong>用繁體中文回覆</strong></li>
+                            <li>你的回覆風格偏好（例如：簡潔、直接給答案、不要廢話）</li>
+                            <li>你常用的工具或平台（例如：Google Workspace、LINE、Excel）</li>
+                        </ul>
+                        <div class="tip-box">
+                            <h4>💡 設定一次，永久生效</h4>
+                            <p>設定後，每場新對話都會自動套用，不用每次重新說明。寫中文完全沒問題，Claude 會根據你寫的語言回覆你。</p>
+                        </div>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → General → Profile 頁面</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Profile 文字框填寫範例</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== Step 2：Memory ========== -->
+                        <div class="section-title">Step 2　打開記憶功能（Memory）</div>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → Capabilities → Memory</span></p>
+                        <p class="mt-3">Memory 讓 Claude 可以記住你在不同對話中提過的事情。打開後，Claude 會自動整理你的偏好、常用工具、工作習慣等資訊——<strong>越用越懂你，不需要每次都從頭解釋。</strong></p>
+                        <div class="alert alert-info mt-4">
+                            <strong>從 ChatGPT 搬家？</strong> 在 Memory 頁面可以找到匯入功能，把舊的記憶資料一鍵搬過來。<br>
+                            💡 你可以隨時到 Settings → Capabilities → Memory 查看 Claude 記住了什麼，也可以手動編輯或刪除。
+                        </div>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → Capabilities → Memory 開關頁面</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Memory 切換開關的位置</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== Step 3+4：Connectors & Capabilities ========== -->
+                        <div class="section-title">Step 3 ＋ 4　接上外部工具 ＆ 打開所有能力</div>
+
+                        <p class="font-semibold text-slate-700 mt-2 mb-1">3a. 接上 Connectors（外部工具串接）</p>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Customize → Connect your apps</span></p>
+                        <p class="mt-2">Connectors 讓 Claude 能直接存取你的外部工具。點擊左側選單的「<strong>Customize</strong>」，找到「<strong>Connect your apps</strong>」。目前支援的串接包含：</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
+                            <li><strong>Google Drive</strong> — 讀取、搜尋你的雲端文件</li>
+                            <li><strong>Gmail</strong> — 讀取信件、搜尋郵件內容</li>
+                            <li><strong>Google Calendar</strong> — 查看行程、建立活動（課程任務四會用到！）</li>
+                            <li><strong>Notion</strong> — 讀取和管理你的筆記資料庫</li>
+                            <li>Slack、GitHub、Linear 等更多工具</li>
+                        </ul>
+                        <div class="tip-box">
+                            <h4>🔒 安全提醒</h4>
+                            <p>Connectors 只有讀取權限，不會自動修改或刪除你的資料，可以放心使用。接上後，你可以直接在對話中說「幫我查今天的行程」或「找一下 Drive 裡面那份報告」，Claude 就會自己去拿資料。</p>
+                        </div>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Customize → Connect your apps 頁面</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Google Drive / Calendar 連接按鈕</p>
+                            </div>
+                        </div>
+
+                        <p class="font-semibold text-slate-700 mt-6 mb-1">3b. Capabilities 全部打開</p>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → Capabilities</span></p>
+                        <p class="mt-2">Capabilities 是 Claude 的能力開關——很多人裝完 Claude 不知道這些功能需要<strong>手動開啟</strong>。打開 Settings → Capabilities，你會看到十幾個開關：</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
+                            <li><strong>Web Search</strong> — 即時搜尋網路資訊</li>
+                            <li><strong>Analysis</strong> — 分析資料、製作圖表</li>
+                            <li><strong>File Upload &amp; Creation</strong> — 上傳和建立檔案（Excel、Word、PDF）</li>
+                            <li><strong>Code Execution</strong> — 執行程式碼</li>
+                            <li><strong>Memory</strong> — 記憶功能（Step 2 已設定）</li>
+                        </ul>
+                        <div class="alert alert-warning">
+                            ⚠️ <strong>裝完沒開等於沒裝！</strong>這些功能全部包含在你的 Pro 訂閱方案中，不需要額外付費，建議全部打開。
+                        </div>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → Capabilities 開關頁面</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Web Search、Analysis、File Upload 等開關全開的狀態</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== Step 5：Skills ========== -->
+                        <div class="section-title">Step 5　開啟官方 Skills ＋ 載入公司 SOP 技能</div>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Customize → Skills</span></p>
+                        <p class="mt-2">Skills 是 Claude 的模組化技能包，分為兩種：</p>
+
+                        <p class="font-semibold text-slate-700 mt-4 mb-1">① 官方內建 Skills（馬上開啟）</p>
+                        <p>點擊「Customize → Skills」，你會看到官方預設的技能模組：</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
+                            <li><strong>簡報製作（.pptx）</strong> — 自動生成專業簡報</li>
+                            <li><strong>試算表（.xlsx）</strong> — 建立和分析 Excel 檔案</li>
+                            <li><strong>PDF 處理</strong> — 讀取、合併、建立 PDF</li>
+                            <li><strong>Word 文件（.docx）</strong> — 製作專業文件</li>
+                            <li><strong>排程任務（Schedule）</strong> — 設定定時自動執行</li>
+                        </ul>
+                        <p>把它們<strong>全部開啟</strong>，Claude 會根據你的需求自動判斷什麼時候該使用哪個 Skill。</p>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Customize → Skills 頁面（官方技能列表）</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：xlsx、pptx、docx、PDF 技能全部啟用的狀態</p>
+                            </div>
+                        </div>
+
+                        <p class="font-semibold text-slate-700 mt-4 mb-1">② 自訂 Skills：載入公司 SOP（課程主軸！）</p>
+                        <p>我們為大地興準備了 12 份公司 SOP 格式的技能範本（位於 <code>skills</code> 資料夾），有兩種方式可以載入：</p>
+                        <div class="quick-links mt-4">
+                            <a href="skills_guide.html" target="_blank" class="btn-pill">🧰 查看完整 Skills 載入教學（補充教材）</a>
+                        </div>
+                        <div class="faq-box mt-4">
+                            <h4>📌 兩種載入方式快速對比</h4>
+                            <div class="faq-item">
+                                <p class="faq-question">🛠️ 方法一：手動正規版（Customize → Skills → Create Skill）</p>
+                                <p class="faq-answer">永久綁定帳號，跨對話可用，適合個人常用技能。Name 欄位需填英文（範例對照表在補充教材中）。</p>
+                            </div>
+                            <div class="faq-item">
+                                <p class="faq-question">🔥 方法二：動態載入神招（一次批次掛載所有 SOP）</p>
+                                <p class="faq-answer">用一段提示詞讓 AI 現場讀取 skills 資料夾所有 .md 檔，適合展示或部門共用，開新對話需重新載入。</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== Step 6：Claude in Chrome ========== -->
+                        <div class="section-title">Step 6　安裝 Claude in Chrome <span class="meta-tag dept-all" style="font-size:0.72rem;vertical-align:middle;">Pro / Max</span></div>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → Claude in Chrome</span></p>
+                        <p class="mt-2">Claude in Chrome 是一個瀏覽器擴充功能，裝好之後 Claude 就能直接操作你的 Chrome 瀏覽器。</p>
+                        <ol class="list-decimal pl-6 space-y-1 text-base my-3">
+                            <li>在 Settings 左邊找到「<strong>Claude in Chrome</strong>」</li>
+                            <li>點擊連結前往 Chrome Web Store</li>
+                            <li>點「加到 Chrome」安裝擴充功能</li>
+                            <li>釘選擴充功能（點拼圖圖示 → 釘選 Claude）</li>
+                            <li>回到 Settings 確認連線狀態</li>
+                        </ol>
+                        <p>裝完後，你可以請 Claude 幫你：<strong>填寫網頁表單、瀏覽搜尋結果、操作網頁應用程式</strong>等。</p>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → Claude in Chrome 安裝頁面</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：Chrome Web Store 安裝按鈕 或 連線成功狀態</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== Step 7：Computer Use ========== -->
+                        <div class="section-title">Step 7　設定 Computer Use（電腦操控）<span class="meta-tag dept-all" style="font-size:0.72rem;vertical-align:middle;">Pro / Max</span></div>
+                        <p><span class="meta-tag" style="background:rgba(0,126,57,0.12);color:var(--primary);border:1px solid rgba(0,126,57,0.2);">📍 Settings → General → Browser Use ＋ Computer Use</span></p>
+                        <p class="mt-2">這是 Claude 最強大的功能——直接操控你的整台電腦。開啟方式：</p>
+                        <ol class="list-decimal pl-6 space-y-1 text-base my-3">
+                            <li>打開 Settings → General</li>
+                            <li>找到 <strong>Browser Use</strong>，打開</li>
+                            <li>找到 <strong>Computer Use</strong>，打開並確認</li>
+                        </ol>
+                        <p>開啟後，在 Cowork 模式開始新對話，Claude 可以幫你：</p>
+                        <ul class="list-disc pl-6 space-y-1 text-base my-3">
+                            <li>打開應用程式、點擊按鈕、輸入文字</li>
+                            <li>操作檔案總管管理檔案</li>
+                            <li>跨應用程式自動化工作流程</li>
+                        </ul>
+                        <div class="alert alert-warning">
+                            🛡️ <strong>安全提醒</strong>：Claude 每次操作前都會先詢問你的許可。建議不要授權銀行、醫療等敏感應用程式的存取。
+                        </div>
+                        <!-- 截圖佔位 -->
+                        <div class="my-5 text-center">
+                            <div style="border:2px dashed #cbd5e1;background:#f8fafc;border-radius:12px;padding:40px 20px;color:#94a3b8;">
+                                <p style="font-size:2rem;margin-bottom:8px;">🖼️</p>
+                                <p style="font-weight:700;color:#64748b;">【待補截圖】Settings → General：Browser Use ＋ Computer Use 開關位置</p>
+                                <p style="font-size:0.82rem;margin-top:4px;">建議截取：兩個開關都開啟的狀態</p>
+                            </div>
+                        </div>
+
+                        <!-- ========== 完成確認 ========== -->
+                        <p class="font-semibold text-slate-700 mt-10 mb-3">✅ 7 步驟完成確認</p>
+                        <ul class="checklist">
+                            <li><input type="checkbox"> <strong>Step 1</strong>：Profile 已填入姓名、語言偏好（繁體中文）、工作背景</li>
+                            <li><input type="checkbox"> <strong>Step 2</strong>：Memory 功能已開啟</li>
+                            <li><input type="checkbox"> <strong>Step 3a</strong>：至少接上 Google Calendar（課程任務四需要）</li>
+                            <li><input type="checkbox"> <strong>Step 3b</strong>：Capabilities 所有功能已全部開啟</li>
+                            <li><input type="checkbox"> <strong>Step 5</strong>：官方 Skills（xlsx、pptx、docx）已全部啟用</li>
+                            <li><input type="checkbox"> <strong>Step 6</strong>：Claude in Chrome 擴充功能已安裝並釘選</li>
+                            <li><input type="checkbox"> <strong>Step 7</strong>：Browser Use ＋ Computer Use 已開啟</li>
+                        </ul>
+
+                    </div>
+                    <div class="section-nav">
+                        <button class="nav-btn" onclick="goNext('initial-setup')">任務一：檔案收納術 →</button>
                     </div>
                 </section>
 
@@ -1617,7 +1842,7 @@
         // Section Order & Navigation
         // =============================================
         const SECTION_ORDER = [
-            'intro', 'setup', 'practice-files', 'practice-ocr',
+            'intro', 'setup', 'initial-setup', 'practice-files', 'practice-ocr',
             'practice-form', 'practice-calendar', 'role-practice',
             'skills-library', 'advance'
         ];
